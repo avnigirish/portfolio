@@ -153,11 +153,27 @@ Always think about the "why" behind questions and provide strategic career insig
     })
 
     if (!response.ok) {
+      const errorText = await response.text()
+      console.error(`OpenRouter API error: ${response.status} - ${errorText}`)
       throw new Error(`OpenRouter API error: ${response.status}`)
     }
 
     const data = await response.json()
-    const assistantMessage = data.choices[0]?.message
+    console.log('OpenRouter API response:', JSON.stringify(data, null, 2))
+    
+    // Check if the response contains an error
+    if (data.error) {
+      console.error('OpenRouter API error:', data.error)
+      throw new Error(`OpenRouter API error: ${data.error.message || 'Unknown error'}`)
+    }
+    
+    // Handle different response structures
+    const assistantMessage = data.choices?.[0]?.message || data.message || null
+    
+    if (!assistantMessage) {
+      console.error('No assistant message found in response:', data)
+      throw new Error('Invalid response structure from OpenRouter API')
+    }
 
     let structuredData = null
     let responseText = assistantMessage?.content || 'I apologize, but I encountered an issue processing your request.'
@@ -177,15 +193,18 @@ Always think about the "why" behind questions and provide strategic career insig
     return NextResponse.json({
       response: responseText,
       structured: structuredData,
-      model: data.model,
-      usage: data.usage
+      model: data.model || 'unknown',
+      usage: data.usage || null
     })
 
   } catch (error) {
     console.error('Chat API error:', error)
-    return NextResponse.json(
-      { error: 'Failed to process chat request' },
-      { status: 500 }
-    )
+    
+    // Return a proper error response
+    return NextResponse.json({
+      response: 'I apologize, but I\'m having trouble connecting to the AI service right now. Please try again in a moment.',
+      structured: null,
+      error: error instanceof Error ? error.message : 'Unknown error occurred'
+    }, { status: 500 })
   }
 }

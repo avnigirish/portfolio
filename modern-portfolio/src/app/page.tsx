@@ -4,9 +4,11 @@ import About from '@/components/About'
 import Experience from '@/components/Experience'
 import Skills from '@/components/Skills'
 import Projects from '@/components/Projects'
+import DataVisualization from '@/components/DataVisualization'
 import ClientOnlyFloatingChat from '@/components/ClientOnlyFloatingChat'
 import Contact from '@/components/Contact'
 import Footer from '@/components/Footer'
+import SpotifyNowPlaying from '@/components/SpotifyNowPlaying'
 
 export default function Home() {
   return (
@@ -28,12 +30,16 @@ export default function Home() {
         <section id="projects" className="py-20">
           <Projects />
         </section>
+        <section id="data-viz" className="py-20">
+          <DataVisualization />
+        </section>
         <section id="contact" className="py-20">
           <Contact />
         </section>
       </main>
       <Footer />
       <ClientOnlyFloatingChat />
+      <SpotifyNowPlaying />
     </div>
   )
 }

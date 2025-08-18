@@ -3,12 +3,13 @@
 import { motion } from 'framer-motion'
 import { useState } from 'react'
 import AnimatedBackground from './AnimatedBackground'
+import EnhancedAIAgents from './EnhancedAIAgents'
 
 export default function Projects() {
   const [activeTab, setActiveTab] = useState('ai-demos')
 
   const tabs = [
-    { id: 'ai-demos', label: 'AI Demos', icon: '🤖' },
+    { id: 'ai-demos', label: 'AI Agents', icon: '🤖' },
     { id: 'research', label: 'Research', icon: '🧠' },
     { id: 'projects', label: 'Projects', icon: '💻' }
   ]
@@ -27,7 +28,7 @@ export default function Projects() {
           Projects & Research
         </h2>
         <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-          Showcasing AI applications, research work, and technical projects
+          Showcasing AI applications, research work, and technical projects with interactive data visualizations
         </p>
       </motion.div>
 
@@ -60,196 +61,12 @@ export default function Projects() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        {activeTab === 'ai-demos' && <AIDemos />}
+        {activeTab === 'ai-demos' && <EnhancedAIAgents />}
         {activeTab === 'research' && <ResearchProjects />}
         {activeTab === 'projects' && <TechnicalProjects />}
       </motion.div>
     </section>
     </AnimatedBackground>
-  )
-}
-
-function AIDemos() {
-  const [sentimentText, setSentimentText] = useState('')
-  const [sentimentResult, setSentimentResult] = useState<any>(null)
-  const [hungerLevel, setHungerLevel] = useState(5)
-  const [decisionType, setDecisionType] = useState('Numerical')
-  const [cognitiveResult, setCognitiveResult] = useState<any>(null)
-
-  const analyzeSentiment = () => {
-    // Simple sentiment analysis simulation
-    const positive = ['love', 'great', 'amazing', 'excellent', 'wonderful', 'fantastic', 'good', 'awesome']
-    const negative = ['hate', 'terrible', 'awful', 'bad', 'worst', 'horrible', 'disappointing']
-    
-    const text = sentimentText.toLowerCase()
-    const posCount = positive.filter(word => text.includes(word)).length
-    const negCount = negative.filter(word => text.includes(word)).length
-    
-    let sentiment, score, color
-    if (posCount > negCount) {
-      sentiment = 'Positive'
-      score = 0.7 + (posCount * 0.1)
-      color = 'text-green-500'
-    } else if (negCount > posCount) {
-      sentiment = 'Negative'
-      score = -(0.7 + (negCount * 0.1))
-      color = 'text-red-500'
-    } else {
-      sentiment = 'Neutral'
-      score = 0
-      color = 'text-yellow-500'
-    }
-
-    setSentimentResult({ sentiment, score, color })
-  }
-
-  const runCognitiveTest = () => {
-    // Simulate cognitive test based on hunger level and decision type
-    const baseAccuracy = 0.8
-    const hungerPenalty = (hungerLevel - 5) * 0.02 // Higher hunger = lower accuracy
-    const accuracy = Math.max(0.4, baseAccuracy - Math.abs(hungerPenalty))
-    
-    const reactionTimes = {
-      'Numerical': 850,
-      'Spatial': 920,
-      'Memory': 1100,
-      'Attention': 780
-    }
-    
-    const baseReactionTime = reactionTimes[decisionType as keyof typeof reactionTimes]
-    const hungerEffect = hungerLevel > 7 ? hungerLevel * 50 : 0
-    const finalReactionTime = baseReactionTime + hungerEffect + (Math.random() * 200 - 100)
-    
-    const interpretation = accuracy > 0.75 
-      ? 'Excellent cognitive performance' 
-      : accuracy > 0.6 
-      ? 'Good cognitive performance' 
-      : 'Cognitive performance affected by hunger'
-
-    setCognitiveResult({
-      accuracy: (accuracy * 100).toFixed(1),
-      reactionTime: Math.round(finalReactionTime),
-      interpretation,
-      hungerEffect: hungerLevel > 7 ? 'High hunger impacting performance' : 'Hunger levels within normal range'
-    })
-  }
-
-  return (
-    <div className="grid lg:grid-cols-2 gap-8">
-      {/* Sentiment Analysis Demo */}
-      <motion.div
-        initial={{ opacity: 0, x: -50 }}
-        animate={{ opacity: 1, x: 0 }}
-        className="glass p-8 rounded-xl"
-      >
-        <h3 className="text-2xl font-bold mb-6 gradient-text">Sentiment Analysis</h3>
-        <p className="text-muted-foreground mb-6">
-          Try our AI-powered sentiment analysis tool to analyze the emotional tone of text.
-        </p>
-        
-        <textarea
-          value={sentimentText}
-          onChange={(e) => setSentimentText(e.target.value)}
-          placeholder="Enter text to analyze..."
-          className="w-full p-4 bg-background border border-border rounded-lg mb-4 min-h-[100px]"
-        />
-        
-        <motion.button
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          onClick={analyzeSentiment}
-          className="w-full bg-gradient-to-r from-purple-500 to-pink-500 text-white py-3 rounded-lg font-semibold"
-        >
-          Analyze Sentiment
-        </motion.button>
-
-        {sentimentResult && (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="mt-6 p-4 glass rounded-lg"
-          >
-            <h4 className="text-lg font-semibold mb-2">Results:</h4>
-            <p className={`text-2xl font-bold ${sentimentResult.color}`}>
-              {sentimentResult.sentiment}
-            </p>
-            <p className="text-muted-foreground">
-              Score: {sentimentResult.score.toFixed(2)}
-            </p>
-          </motion.div>
-        )}
-      </motion.div>
-
-      {/* Cognitive Research Demo */}
-      <motion.div
-        initial={{ opacity: 0, x: 50 }}
-        animate={{ opacity: 1, x: 0 }}
-        className="glass p-8 rounded-xl"
-      >
-        <h3 className="text-2xl font-bold mb-6 gradient-text">Cognitive Research Simulation</h3>
-        <p className="text-muted-foreground mb-6">
-          Based on research studying how hunger affects cognitive decision-making.
-        </p>
-        
-        <div className="space-y-4">
-          <div>
-            <label className="block text-sm font-medium mb-2">
-              Hunger Level: {hungerLevel}/10
-            </label>
-            <input
-              type="range"
-              min="1"
-              max="10"
-              value={hungerLevel}
-              onChange={(e) => setHungerLevel(parseInt(e.target.value))}
-              className="w-full accent-purple-500"
-            />
-            <div className="text-xs text-muted-foreground mt-1">
-              {hungerLevel <= 3 ? 'Well-fed' : hungerLevel <= 6 ? 'Moderately hungry' : 'Very hungry'}
-            </div>
-          </div>
-          
-          <div>
-            <label className="block text-sm font-medium mb-2">Decision Type:</label>
-            <select 
-              value={decisionType}
-              onChange={(e) => setDecisionType(e.target.value)}
-              className="w-full p-3 bg-background border border-border rounded-lg"
-            >
-              <option>Numerical</option>
-              <option>Spatial</option>
-              <option>Memory</option>
-              <option>Attention</option>
-            </select>
-          </div>
-          
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={runCognitiveTest}
-            className="w-full bg-gradient-to-r from-blue-500 to-purple-500 text-white py-3 rounded-lg font-semibold"
-          >
-            Run Cognitive Test
-          </motion.button>
-
-          {cognitiveResult && (
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="mt-6 p-4 glass rounded-lg"
-            >
-              <h4 className="text-lg font-semibold mb-3">Test Results:</h4>
-              <div className="space-y-2">
-                <p><span className="font-medium">Accuracy:</span> {cognitiveResult.accuracy}%</p>
-                <p><span className="font-medium">Reaction Time:</span> {cognitiveResult.reactionTime}ms</p>
-                <p><span className="font-medium">Assessment:</span> {cognitiveResult.interpretation}</p>
-                <p className="text-sm text-muted-foreground">{cognitiveResult.hungerEffect}</p>
-              </div>
-            </motion.div>
-          )}
-        </div>
-      </motion.div>
-    </div>
   )
 }
 
