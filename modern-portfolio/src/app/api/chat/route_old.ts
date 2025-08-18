@@ -142,17 +142,41 @@ RESEARCH & ACADEMIC CONTRIBUTIONS:
 - Using MATLAB for statistical analysis and behavioral data processing
 - Contributing to understanding of cognitive development and decision-making processes
 
+PERSONALITY & APPROACH:
+- Analytical yet human-centered in problem-solving
+- Bridges technical implementation with user psychology
+- Demonstrates leadership through diversity programs and research initiatives
+- Shows versatility through cross-sector experience (finance, government, academia)
+
+RESPONSE GUIDELINES:
+- Provide deep, detailed responses that demonstrate comprehensive understanding
+- Make intelligent inferences about career paths and opportunities based on her profile
+- Connect her experiences to broader industry trends and opportunities
+- Offer specific insights about how her unique CS + Cognitive Science combination is valuable
+- Be conversational but sophisticated, reflecting her caliber and potential
+- Always structure responses with clear topics, descriptions, key points, and career insights
+
+Always think about the "why" behind questions and provide strategic career insights.`
+        },
+        {
+          role: 'user',
+          content: message
+        }
+      ],
+      temperature: 0.8,
+      max_tokens: 1000
+    }
+- Investigating cognitive components of numerical understanding
+- Using advanced statistical methods and MATLAB for data analysis
+- Contributing to academic understanding of cognitive-behavioral patterns
+
 FLAGSHIP PROJECTS:
 - MoodSync+: AI-powered wellness application with Spotify API integration and sentiment analysis
-- Interactive Portfolio: Next.js showcase with 3D animations, voice AI, and real-time analytics
-- Financial Data Analysis: Machine learning models for cybersecurity threat detection at BNY
+- Automated Car Simulation: Neural network-based autonomous vehicle navigation system
+- Sentiment Analysis Tools: 95% accuracy NLP models for emotion detection
+- Real-time Data Dashboards: Interactive visualization platforms for complex datasets
 
-LEADERSHIP & DIVERSITY IMPACT:
-- Active in diversity programs at top-tier finance and consulting firms
-- Demonstrates commitment to inclusive technology development
-- Bridges academic research with real-world business applications
-
-CAREER POSITIONING:
+CAREER TRAJECTORY ANALYSIS:
 Based on her unique combination of computer science technical skills, cognitive science research background, and diverse internship experience across finance, government, and academia, Avni is positioned for several high-impact career paths:
 
 1. AI/ML Research Scientist - Her research background and technical skills align perfectly
@@ -186,7 +210,7 @@ Always think about the "why" behind questions and provide strategic career insig
       max_tokens: 1000
     }
 
-    // Only add tools if the primary model supports them
+    // Only add tools if the model supports them
     if (supportsTools) {
       requestBody.tools = [
         {
@@ -224,7 +248,7 @@ Always think about the "why" behind questions and provide strategic career insig
                   items: {
                     type: 'string'
                   },
-                  description: 'Related areas, technologies, or opportunities to explore'
+                  description: 'Related areas they might want to explore'
                 }
               },
               required: ['topic', 'description', 'key_points']
@@ -232,16 +256,34 @@ Always think about the "why" behind questions and provide strategic career insig
           }
         }
       ]
+      requestBody.tool_choice = 'auto'
     }
 
-    // Try models with fallback system
-    const result = await tryModelsWithFallback(requestBody)
+    const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${process.env.OPENROUTER_API_KEY}`,
+        'Content-Type': 'application/json',
+        'HTTP-Referer': process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000',
+        'X-Title': 'Avni Girish Portfolio Assistant'
+      },
+      body: JSON.stringify(requestBody)
+    })
+
+    if (!response.ok) {
+      const errorText = await response.text()
+      console.error(`OpenRouter API error: ${response.status} - ${errorText}`)
+      throw new Error(`OpenRouter API error: ${response.status}`)
+    }
+
+    const data = await response.json()
+    console.log('OpenRouter API response:', JSON.stringify(data, null, 2))
     
-    if (!result.success) {
-      throw new Error('All models failed')
+    // Check if the response contains an error
+    if (data.error) {
+      console.error('OpenRouter API error:', data.error)
+      throw new Error(`OpenRouter API error: ${data.error.message || 'Unknown error'}`)
     }
-
-    const data = result.data
     
     // Handle different response structures
     const assistantMessage = data.choices?.[0]?.message || data.message || null
@@ -269,8 +311,7 @@ Always think about the "why" behind questions and provide strategic career insig
     return NextResponse.json({
       response: responseText,
       structured: structuredData,
-      model: result.modelUsed,
-      attemptNumber: result.attemptNumber,
+      model: data.model || 'unknown',
       usage: data.usage || null
     })
 
