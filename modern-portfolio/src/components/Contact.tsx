@@ -4,6 +4,7 @@ import { motion } from 'framer-motion'
 import { useState } from 'react'
 import { Mail, Phone, MapPin, Send, CheckCircle } from 'lucide-react'
 import AnimatedBackground from './AnimatedBackground'
+import { trackContactFormSubmit } from './AnalyticsTracker'
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -24,12 +25,31 @@ export default function Contact() {
     e.preventDefault()
     setIsSubmitting(true)
     
-    // Simulate form submission
-    setTimeout(() => {
-      setIsSubmitted(true)
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      })
+
+      const result = await response.json()
+
+      if (response.ok) {
+        setIsSubmitted(true)
+        setFormData({ name: '', email: '', subject: '', message: '' })
+        // Track successful form submission
+        trackContactFormSubmit()
+      } else {
+        alert(result.error || 'Failed to send message. Please try again.')
+      }
+    } catch (error) {
+      console.error('Form submission error:', error)
+      alert('Failed to send message. Please try again or contact me directly at avni123.girish@gmail.com')
+    } finally {
       setIsSubmitting(false)
-      setFormData({ name: '', email: '', subject: '', message: '' })
-    }, 2000)
+    }
   }
 
   const contactInfo = [
