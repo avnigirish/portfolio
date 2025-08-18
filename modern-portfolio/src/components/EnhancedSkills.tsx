@@ -240,6 +240,106 @@ export default function Skills() {
               </div>
             </motion.div>
 
+            {/* Challenge Preview */}
+            {Object.keys(skillProgress).length > 0 && (
+              <motion.div
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                viewport={{ once: true }}
+                className="mb-16"
+              >
+                <h3 className="text-2xl font-bold text-center mb-8 text-cyan-400">
+                  Sample Challenge Preview
+                </h3>
+                <div className="max-w-4xl mx-auto glass p-8 rounded-xl">
+                  <div className="grid md:grid-cols-2 gap-8">
+                    {/* React Challenge Preview */}
+                    {skillProgress['React'] && skillProgress['React'].challenges[0] && (
+                      <div className="border border-purple-500/30 rounded-xl p-6">
+                        <div className="flex justify-between items-start mb-4">
+                          <div>
+                            <h4 className="text-lg font-bold text-white mb-1">React Challenge</h4>
+                            <p className="text-purple-400 text-sm">{skillProgress['React'].challenges[0].title}</p>
+                          </div>
+                          <span className={`px-2 py-1 rounded text-xs ${getDifficultyColor(skillProgress['React'].challenges[0].difficulty)}`}>
+                            {skillProgress['React'].challenges[0].difficulty}
+                          </span>
+                        </div>
+                        
+                        <div className="bg-gray-900 rounded-lg p-4 mb-4">
+                          <pre className="text-green-400 text-sm overflow-x-auto">
+                            <code>{skillProgress['React'].challenges[0].code}</code>
+                          </pre>
+                        </div>
+                        
+                        <div className="mb-4">
+                          <p className="text-white text-sm mb-3">{skillProgress['React'].challenges[0].question}</p>
+                          <div className="space-y-2">
+                            {skillProgress['React'].challenges[0].options?.slice(0, 2).map((option, index) => (
+                              <div key={index} className="bg-white/5 border border-white/20 rounded-lg p-3">
+                                <span className="text-purple-400 font-mono text-sm">{String.fromCharCode(65 + index)}.</span>
+                                <span className="text-white text-sm ml-2">{option}</span>
+                              </div>
+                            ))}
+                            <div className="text-gray-400 text-sm text-center py-2">
+                              ... and {(skillProgress['React'].challenges[0].options?.length || 0) - 2} more options
+                            </div>
+                          </div>
+                        </div>
+                        
+                        <div className="flex justify-between items-center">
+                          <span className="text-yellow-400 text-sm">+{skillProgress['React'].challenges[0].xpReward} XP</span>
+                          <span className="text-purple-400 text-sm">Click skill above to try!</span>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* TypeScript Challenge Preview */}
+                    {skillProgress['TypeScript'] && skillProgress['TypeScript'].challenges[0] && (
+                      <div className="border border-blue-500/30 rounded-xl p-6">
+                        <div className="flex justify-between items-start mb-4">
+                          <div>
+                            <h4 className="text-lg font-bold text-white mb-1">TypeScript Challenge</h4>
+                            <p className="text-blue-400 text-sm">{skillProgress['TypeScript'].challenges[0].title}</p>
+                          </div>
+                          <span className={`px-2 py-1 rounded text-xs ${getDifficultyColor(skillProgress['TypeScript'].challenges[0].difficulty)}`}>
+                            {skillProgress['TypeScript'].challenges[0].difficulty}
+                          </span>
+                        </div>
+                        
+                        <div className="bg-gray-900 rounded-lg p-4 mb-4">
+                          <pre className="text-blue-400 text-sm overflow-x-auto">
+                            <code>{skillProgress['TypeScript'].challenges[0].code}</code>
+                          </pre>
+                        </div>
+                        
+                        <div className="mb-4">
+                          <p className="text-white text-sm mb-3">{skillProgress['TypeScript'].challenges[0].question}</p>
+                          <div className="space-y-2">
+                            {skillProgress['TypeScript'].challenges[0].options?.slice(0, 2).map((option, index) => (
+                              <div key={index} className="bg-white/5 border border-white/20 rounded-lg p-3">
+                                <span className="text-blue-400 font-mono text-sm">{String.fromCharCode(65 + index)}.</span>
+                                <span className="text-white text-sm ml-2">{option}</span>
+                              </div>
+                            ))}
+                            <div className="text-gray-400 text-sm text-center py-2">
+                              ... and {(skillProgress['TypeScript'].challenges[0].options?.length || 0) - 2} more options
+                            </div>
+                          </div>
+                        </div>
+                        
+                        <div className="flex justify-between items-center">
+                          <span className="text-yellow-400 text-sm">+{skillProgress['TypeScript'].challenges[0].xpReward} XP</span>
+                          <span className="text-blue-400 text-sm">Click skill above to try!</span>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </motion.div>
+            )}
+
             {/* All Skills Grid */}
             <div className="grid lg:grid-cols-2 gap-8 mb-16">
               {skillCategories.map((category, categoryIndex) => (
@@ -352,6 +452,63 @@ export default function Skills() {
                 </motion.div>
               )}
             </AnimatePresence>
+
+            {/* Certifications & Awards */}
+            <motion.div
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.8 }}
+              viewport={{ once: true }}
+              className="mt-16"
+            >
+              <h3 className="text-3xl font-bold text-center mb-8 gradient-text">
+                Certifications & Achievements
+              </h3>
+              
+              <div className="grid md:grid-cols-2 gap-6">
+                <div className="glass p-6 rounded-xl">
+                  <h4 className="text-xl font-bold mb-4 text-purple-400">Certifications</h4>
+                  <ul className="space-y-2">
+                    {resumeData.certifications.map((cert, index) => (
+                      <motion.li
+                        key={index}
+                        initial={{ opacity: 0, x: -20 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.4, delay: index * 0.1 }}
+                        viewport={{ once: true }}
+                        className="text-sm leading-relaxed flex items-center"
+                      >
+                        <svg className="w-4 h-4 text-purple-400 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                        </svg>
+                        {cert}
+                      </motion.li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div className="glass p-6 rounded-xl">
+                  <h4 className="text-xl font-bold mb-4 text-pink-400">Awards</h4>
+                  <ul className="space-y-2">
+                    {resumeData.awards.map((award, index) => (
+                      <motion.li
+                        key={index}
+                        initial={{ opacity: 0, x: -20 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.4, delay: index * 0.1 }}
+                        viewport={{ once: true }}
+                        className="text-sm leading-relaxed flex items-center"
+                      >
+                        <svg className="w-4 h-4 text-yellow-400 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                        </svg>
+                        {award}
+                      </motion.li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </motion.div>
           </>
         ) : (
           /* Challenge Interface */
@@ -457,158 +614,7 @@ export default function Skills() {
             </AnimatePresence>
           </motion.div>
         )}
-
-        {/* Certifications & Awards */}
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.8 }}
-          viewport={{ once: true }}
-          className="mt-16"
-        >
-          <h3 className="text-3xl font-bold text-center mb-8 gradient-text">
-            Certifications & Achievements
-          </h3>
-          
-          <div className="grid md:grid-cols-2 gap-6">
-            <div className="glass p-6 rounded-xl">
-              <h4 className="text-xl font-bold mb-4 text-purple-400">Certifications</h4>
-              <ul className="space-y-2">
-                {resumeData.certifications.map((cert, index) => (
-                  <motion.li
-                    key={index}
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.4, delay: index * 0.1 }}
-                    viewport={{ once: true }}
-                    className="text-sm leading-relaxed flex items-center"
-                  >
-                    <svg className="w-4 h-4 text-purple-400 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                    </svg>
-                    {cert}
-                  </motion.li>
-                ))}
-              </ul>
-            </div>
-
-            <div className="glass p-6 rounded-xl">
-              <h4 className="text-xl font-bold mb-4 text-pink-400">Awards</h4>
-              <ul className="space-y-2">
-                {resumeData.awards.map((award, index) => (
-                  <motion.li
-                    key={index}
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.4, delay: index * 0.1 }}
-                    viewport={{ once: true }}
-                    className="text-sm leading-relaxed flex items-center"
-                  >
-                    <svg className="w-4 h-4 text-yellow-400 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                    </svg>
-                    {award}
-                  </motion.li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        </motion.div>
       </section>
-    </AnimatedBackground>
-  )
-}
-          <motion.div
-            key={category.title}
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: categoryIndex * 0.2 }}
-            viewport={{ once: true }}
-            className="glass p-8 rounded-xl hover-lift"
-          >
-            <h3 className={`text-2xl font-bold mb-6 bg-gradient-to-r ${category.color} bg-clip-text text-transparent`}>
-              {category.title}
-            </h3>
-            
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-              {category.skills.map((skill, skillIndex) => (
-                <motion.div
-                  key={skill}
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  transition={{ 
-                    duration: 0.4, 
-                    delay: categoryIndex * 0.2 + skillIndex * 0.1 
-                  }}
-                  whileHover={{ 
-                    scale: 1.05, 
-                    rotateY: 5,
-                    boxShadow: "0 10px 30px rgba(139, 92, 246, 0.2)"
-                  }}
-                  viewport={{ once: true }}
-                  className="glass p-4 rounded-lg text-center hover-lift cursor-pointer"
-                >
-                  <span className="text-sm font-medium">{skill}</span>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-        ))}
-      </div>
-
-      {/* Certifications */}
-      <motion.div
-        initial={{ opacity: 0, y: 50 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 0.8 }}
-        viewport={{ once: true }}
-        className="mt-16"
-      >
-        <h3 className="text-3xl font-bold text-center mb-8 gradient-text">
-          Certifications & Awards
-        </h3>
-        
-        <div className="grid md:grid-cols-2 gap-6">
-          {/* Certifications */}
-          <div className="glass p-6 rounded-xl">
-            <h4 className="text-xl font-bold mb-4 text-purple-500">Certifications</h4>
-            <ul className="space-y-2">
-              {resumeData.certifications.map((cert, index) => (
-                <motion.li
-                  key={index}
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.4, delay: index * 0.1 }}
-                  viewport={{ once: true }}
-                  className="text-sm leading-relaxed"
-                >
-                  • {cert}
-                </motion.li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Awards */}
-          <div className="glass p-6 rounded-xl">
-            <h4 className="text-xl font-bold mb-4 text-pink-500">Awards</h4>
-            <ul className="space-y-2">
-              {resumeData.awards.map((award, index) => (
-                <motion.li
-                  key={index}
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.4, delay: index * 0.1 }}
-                  viewport={{ once: true }}
-                  className="text-sm leading-relaxed"
-                >
-                  🏆 {award}
-                </motion.li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      </motion.div>
-    </section>
     </AnimatedBackground>
   )
 }
