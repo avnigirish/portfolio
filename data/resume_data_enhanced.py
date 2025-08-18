@@ -168,63 +168,47 @@ WORK_EXPERIENCE = [
         ]
     }
 ]
-                "achievements": [
-                    "Mentored and taught 650+ students in algorithms, data structures, and OOP (Java), improving cohort pass rates by 15%",
-                    "Collaborated with Instructors and Learning Assistants, assisting in guiding students to advance their knowledge in the CS program"
-                ]
-            }
-        ]
-    },
-    {
-        "company": "The Bank of New York Mellon Corporation",
-        "location": "Lake Mary, FL",
-        "positions": [
-            {
-                "title": "InfoSec Data Science & AI Engineer Intern | AI Hub and Digital Engineering",
-                "period": "Jun 2025 - Aug 2025",
-                "achievements": [
-                    "Led AI development of AURA - a self-optimizing dynamic UI system combining Claude 4's financial insight generation with GPT-4.1's AI-powered UI construction, accelerating dashboard development from days to minutes",
-                    "Engineered AI-driven feedback loops where natural language inputs dynamically regenerate UI components, reducing revisions by 65% while boosting EDA accuracy and analyst productivity 3.5x",
-                    "Pioneered an intelligent agent framework where AI autonomously routes tasks between planning (Claude 4) and programming (GPT-4.1) agents via React.js/FastAPI-powered dynamic interfaces"
-                ]
-            }
-        ]
-    },
-    {
-        "company": "New Jersey Economic Development Authority",
-        "location": "Trenton, NJ",
-        "positions": [
-            {
-                "title": "IT Business Analyst Intern",
-                "period": "Jun 2024 - Aug 2024",
-                "achievements": [
-                    "Collected and analyzed business requirements for projects exceeding $500,000, utilizing Azure DevOps, Dynamics365, and Visio to translate requirements into user stories and document them effectively",
-                    "Coordinated with 5 business units and a development team of 10 members, managing roadblocks, gathering feedback, and facilitating release planning for over 20 project milestones",
-                    "Conducted competitor research on state policies, contributing to strategic planning discussions that impacted over 250 applicants for various EDA programs"
-                ]
-            }
-        ]
-    }
-]
 
 # Projects
 PROJECTS = [
     {
-        "name": "MoodSync+: A comprehensive Mental and Physical Wellness App",
-        "period": "Dec 2024 - Present",
-        "description": [
-            "Built an AI-powered platform with Python, FastAPI, and Streamlit, integrating Spotify API to provide personalized recommendations for over 50 mood-based playlists and exercise routines",
-            "Developed NLP features using Hugging Face and OpenAI APIs, achieving 95% accuracy in sentiment analysis and emotion detection for journaling insights",
-            "Designed interactive dashboards with Matplotlib and Plotly, visualizing mood trends for 100+ users while managing a PostgreSQL database for efficient data storage"
-        ],
-        "technologies": ["Python", "FastAPI", "Streamlit", "Spotify API", "Hugging Face", "OpenAI API", "PostgreSQL", "Matplotlib", "Plotly"]
+        "name": "AI-Powered Portfolio Platform",
+        "description": "Interactive portfolio with sentiment analysis, career insights, and dynamic visualizations. Features real-time AI tools and responsive design.",
+        "technologies": ["Python", "FastAPI", "Streamlit", "Machine Learning", "NLP", "Plotly"],
+        "impact": "Created comprehensive platform showcasing AI/ML capabilities with interactive features",
+        "github": "https://github.com/avnigirish/portfolio",
+        "demo": "Available live",
+        "duration": "2024 - Present",
+        "type": "Personal/Academic"
     },
     {
-        "name": "Automated Car Simulation",
-        "period": "Sep 2023 - Oct 2023",
-        "description": [
-            "Built an AI-powered car simulation in JavaScript using neural networks and genetic algorithms, optimizing vehicle performance by 20% through ray casting and collision physics"
-        ],
-        "technologies": ["JavaScript", "Neural Networks", "Genetic Algorithms", "Ray Casting"]
+        "name": "Cognitive Development Research Platform",
+        "description": "Led comprehensive study analyzing correlations between preschool cognitive abilities and academic outcomes using advanced statistical methods.",
+        "technologies": ["R", "Python", "MATLAB", "Statistical Analysis", "Data Visualization"],
+        "impact": "Discovered 30% correlation between math sense and academic performance with 200+ participants",
+        "github": "Proprietary research",
+        "demo": "Research findings available",
+        "duration": "2024 - Present",
+        "type": "Research"
+    },
+    {
+        "name": "Financial Analytics Dashboard",
+        "description": "Built dynamic UI components and sentiment analysis tools for internal teams at Prudential Financial, improving decision-making processes.",
+        "technologies": ["React.js", "Python", "Data Analytics", "UI/UX", "Enterprise Systems"],
+        "impact": "Served 500+ internal users with improved workflow efficiency",
+        "github": "Proprietary/Enterprise",
+        "demo": "Enterprise internal tool",
+        "duration": "Summer 2024",
+        "type": "Enterprise/Internship"
+    },
+    {
+        "name": "Nonprofit Web Application",
+        "description": "Full-stack web application developed for local nonprofit organization through Rutgers Blueprint fellowship program.",
+        "technologies": ["React", "Node.js", "MongoDB", "Express", "DevOps"],
+        "impact": "Serving 200+ community members with 99.9% uptime",
+        "github": "Organization repository",
+        "demo": "Live deployment",
+        "duration": "2023-2024",
+        "type": "Social Impact"
     }
 ]

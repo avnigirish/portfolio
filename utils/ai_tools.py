@@ -9,7 +9,7 @@ class AITools:
     def analyze_sentiment(self, text):
         """Simple sentiment analysis using keyword-based approach"""
         if not text:
-            return {"polarity": 0, "subjectivity": 0, "sentiment": "neutral"}
+            return {"polarity": 0, "subjectivity": 0, "sentiment": "neutral", "confidence": 0.5}
         
         # Simple sentiment analysis using positive/negative word lists
         positive_words = [
@@ -35,6 +35,9 @@ class AITools:
         
         subjectivity = (positive_count + negative_count) / max(total_words, 1)
         
+        # Calculate confidence based on sentiment strength
+        confidence = min(abs(polarity) + subjectivity, 1.0)
+        
         if polarity > 0.1:
             sentiment = "positive"
         elif polarity < -0.1:
@@ -45,7 +48,8 @@ class AITools:
         return {
             "polarity": round(polarity, 3),
             "subjectivity": round(subjectivity, 3),
-            "sentiment": sentiment
+            "sentiment": sentiment,
+            "confidence": round(confidence, 3)
         }
     
     def generate_skill_recommendations(self, current_skills, target_role="Data Scientist"):
@@ -151,3 +155,86 @@ class AITools:
         else:
             # Generate random synergy for demonstration
             return round(random.uniform(0.3, 0.8), 2)
+    
+    def recommend_skills(self, career_goal):
+        """Recommend skills based on career goal"""
+        skill_recommendations = {
+            "AI/ML Engineer": [
+                "Deep Learning Frameworks (PyTorch, TensorFlow)",
+                "MLOps and Model Deployment",
+                "Computer Vision and NLP",
+                "Cloud Platforms (AWS, GCP, Azure)",
+                "Distributed Computing (Spark, Dask)",
+                "Advanced Statistics and Mathematics",
+                "Docker and Kubernetes for ML",
+                "Model Monitoring and Versioning"
+            ],
+            "Data Scientist": [
+                "Advanced Statistical Methods",
+                "Big Data Technologies (Hadoop, Spark)",
+                "Deep Learning and Neural Networks",
+                "A/B Testing and Experimentation",
+                "Data Pipeline Development",
+                "Business Intelligence Tools",
+                "Cloud Data Platforms",
+                "Advanced Visualization Techniques"
+            ],
+            "Software Developer": [
+                "System Design and Architecture",
+                "Microservices and API Design",
+                "DevOps and CI/CD Pipelines",
+                "Database Optimization",
+                "Security Best Practices",
+                "Performance Monitoring",
+                "Agile Development Methodologies",
+                "Code Review and Testing Strategies"
+            ],
+            "Research Scientist": [
+                "Advanced Research Methodologies",
+                "Academic Writing and Publication",
+                "Grant Writing and Funding",
+                "Experimental Design",
+                "Peer Review and Collaboration",
+                "Ethics in Research",
+                "Advanced Data Analysis Techniques",
+                "Domain-Specific Knowledge"
+            ],
+            "Product Manager": [
+                "Product Strategy and Roadmapping",
+                "User Experience (UX) Principles",
+                "Data-Driven Decision Making",
+                "Market Research and Analysis",
+                "Agile and Scrum Methodologies",
+                "Stakeholder Management",
+                "Technical Understanding",
+                "Business Strategy and Planning"
+            ]
+        }
+        
+        return skill_recommendations.get(career_goal, skill_recommendations["AI/ML Engineer"])[:6]
+    
+    def analyze_career_progression(self):
+        """Analyze career progression and provide insights"""
+        # This would typically analyze the user's actual career data
+        # For now, returning sample insights based on Avni's profile
+        
+        insights = {
+            "growth_areas": "Leadership in AI/ML projects, Advanced deep learning architectures, MLOps and production systems",
+            "strengths": "Research methodology, Cross-disciplinary expertise, Mentoring and team development, Statistical analysis",
+            "recommendations": "Pursue advanced ML certifications, Lead open-source AI projects, Build production ML systems, Develop industry partnerships",
+            "progression_score": 85,
+            "next_level_skills": [
+                "Advanced MLOps",
+                "Team Leadership",
+                "Product Strategy",
+                "Research Publications",
+                "Industry Partnerships"
+            ],
+            "career_trajectory": {
+                "current_level": "Senior Research Assistant / Intern",
+                "next_level": "Junior AI/ML Engineer",
+                "long_term_goal": "Senior AI/ML Engineer / Research Scientist"
+            }
+        }
+        
+        return insights
