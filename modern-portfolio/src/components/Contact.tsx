@@ -155,15 +155,21 @@ export default function Contact() {
           >
             <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
             <div className="flex flex-wrap gap-3">
-              {['LinkedIn', 'GitHub', 'Resume'].map((link) => (
+              {[
+                { name: 'LinkedIn', url: 'https://www.linkedin.com/in/avni-girish/' },
+                { name: 'GitHub', url: 'https://github.com/avnigirish' },
+                { name: 'Resume', url: '/resume.pdf' }
+              ].map((link) => (
                 <motion.a
-                  key={link}
-                  href="#"
+                  key={link.name}
+                  href={link.url}
+                  target={link.url.startsWith('http') ? '_blank' : '_self'}
+                  rel={link.url.startsWith('http') ? 'noopener noreferrer' : undefined}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   className="px-4 py-2 bg-gradient-to-r from-purple-500/20 to-pink-500/20 text-purple-500 rounded-lg hover:from-purple-500/30 hover:to-pink-500/30 transition-all duration-300"
                 >
-                  {link}
+                  {link.name}
                 </motion.a>
               ))}
             </div>

@@ -21,9 +21,11 @@ export default function SpotifyNowPlaying() {
   const [error, setError] = useState<string | null>(null)
   const [isMinimized, setIsMinimized] = useState(false)
   const [isOwner, setIsOwner] = useState(false)
+  const [mounted, setMounted] = useState(false)
 
   // Check if this is the owner's development environment
   const checkOwnerAccess = () => {
+    if (!mounted) return false
     const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
     return isLocalhost
   }
@@ -83,6 +85,9 @@ export default function SpotifyNowPlaying() {
   }
 
   useEffect(() => {
+    // Set mounted state first
+    setMounted(true)
+    
     // Check for Spotify setup completion from URL params
     const urlParams = new URLSearchParams(window.location.search)
     if (urlParams.get('spotify_setup') === 'complete') {
@@ -91,12 +96,19 @@ export default function SpotifyNowPlaying() {
       window.history.replaceState({}, document.title, window.location.pathname)
     }
 
-    setIsOwner(checkOwnerAccess())
+    const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+    setIsOwner(isLocalhost)
+    
     fetchNowPlaying()
     const interval = setInterval(fetchNowPlaying, 10000) // Update every 10 seconds
 
     return () => clearInterval(interval)
   }, [])
+
+  // Don't render until component is mounted to prevent hydration mismatch
+  if (!mounted) {
+    return null
+  }
 
   if (error || !track) {
     // Show setup button only for owner in development

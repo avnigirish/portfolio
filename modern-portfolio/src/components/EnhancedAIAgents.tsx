@@ -59,21 +59,21 @@ export default function EnhancedAIAgents() {
 
       const data = await response.json()
       
-      // Parse AI response and create structured data
+      // Parse AI response and create structured data with deterministic values
       const emotions = [
-        { emotion: 'Joy', score: Math.random() * 100, color: '#10B981' },
-        { emotion: 'Anger', score: Math.random() * 100, color: '#EF4444' },
-        { emotion: 'Sadness', score: Math.random() * 100, color: '#3B82F6' },
-        { emotion: 'Fear', score: Math.random() * 100, color: '#8B5CF6' },
-        { emotion: 'Surprise', score: Math.random() * 100, color: '#F59E0B' },
-        { emotion: 'Disgust', score: Math.random() * 100, color: '#6B7280' }
+        { emotion: 'Joy', score: 75.5, color: '#10B981' },
+        { emotion: 'Anger', score: 23.8, color: '#EF4444' },
+        { emotion: 'Sadness', score: 45.2, color: '#3B82F6' },
+        { emotion: 'Fear', score: 18.7, color: '#8B5CF6' },
+        { emotion: 'Surprise', score: 62.3, color: '#F59E0B' },
+        { emotion: 'Disgust', score: 12.1, color: '#6B7280' }
       ]
 
       // Simulate sentiment analysis based on AI response
       setSentimentResult({
         sentiment: data.response.includes('positive') ? 'Positive' : 
                   data.response.includes('negative') ? 'Negative' : 'Neutral',
-        confidence: 85 + Math.random() * 15,
+        confidence: 89.5,
         emotions: emotions.sort((a, b) => b.score - a.score),
         keywords: sentimentText.split(' ').filter(word => word.length > 3).slice(0, 5),
         analysis: data.response,
@@ -113,10 +113,11 @@ export default function EnhancedAIAgents() {
 
       const data = await response.json()
       
-      // Generate realistic cognitive test results
+      // Generate realistic cognitive test results with deterministic base values
       const baseAccuracy = 85
       const hungerPenalty = (hungerLevel - 5) * 3
-      const accuracy = Math.max(40, baseAccuracy - Math.abs(hungerPenalty) + Math.random() * 10)
+      const randomVariation = ((hungerLevel * 17 + decisionType.length * 3) % 20) - 10 // Deterministic "random" based on inputs
+      const accuracy = Math.max(40, baseAccuracy - Math.abs(hungerPenalty) + randomVariation)
       
       const reactionTimes = {
         'Numerical': 850,
@@ -127,13 +128,14 @@ export default function EnhancedAIAgents() {
       
       const baseRT = reactionTimes[decisionType as keyof typeof reactionTimes]
       const hungerEffect = hungerLevel > 7 ? hungerLevel * 30 : 0
-      const reactionTime = baseRT + hungerEffect + (Math.random() * 150 - 75)
+      const rtVariation = ((hungerLevel * 23 + baseRT) % 150) - 75 // Deterministic variation
+      const reactionTime = baseRT + hungerEffect + rtVariation
       
       setCognitiveResult({
         accuracy: accuracy,
         reactionTime: Math.round(reactionTime),
-        cognitiveLoad: hungerLevel * 10 + Math.random() * 20,
-        fatigue: hungerLevel > 6 ? hungerLevel * 8 : Math.random() * 30,
+        cognitiveLoad: hungerLevel * 10 + ((hungerLevel * 7) % 20),
+        fatigue: hungerLevel > 6 ? hungerLevel * 8 : ((hungerLevel * 11) % 30),
         performance: accuracy > 80 ? 'Excellent' : accuracy > 65 ? 'Good' : 'Needs Improvement',
         recommendations: [
           'Maintain regular meal schedule',

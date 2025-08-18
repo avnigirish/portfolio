@@ -14,19 +14,19 @@ export default function Footer() {
     {
       name: 'GitHub',
       icon: <Github className="w-5 h-5" />,
-      href: '#',
+      href: 'https://github.com/avnigirish',
       color: 'hover:text-purple-500'
     },
     {
       name: 'LinkedIn',
       icon: <Linkedin className="w-5 h-5" />,
-      href: '#',
+      href: 'https://www.linkedin.com/in/avni-girish/',
       color: 'hover:text-blue-500'
     },
     {
       name: 'Email',
       icon: <Mail className="w-5 h-5" />,
-      href: 'mailto:ag2327@scarletmail.rutgers.edu',
+      href: 'mailto:avni123.girish@gmail.com',
       color: 'hover:text-pink-500'
     }
   ]
@@ -71,6 +71,8 @@ export default function Footer() {
                 <motion.a
                   key={link.name}
                   href={link.href}
+                  target={link.href.startsWith('http') ? '_blank' : '_self'}
+                  rel={link.href.startsWith('http') ? 'noopener noreferrer' : undefined}
                   whileHover={{ scale: 1.1, y: -2 }}
                   whileTap={{ scale: 0.95 }}
                   className={`p-3 glass rounded-lg transition-all duration-300 ${link.color}`}

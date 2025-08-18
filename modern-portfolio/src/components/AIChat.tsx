@@ -235,7 +235,7 @@ What specific area would you like to know more about?`,
       
       setMessages(prev => [...prev, botResponse])
       setIsTyping(false)
-    }, 1000 + Math.random() * 1000) // Random delay between 1-2 seconds
+    }, 1500) // Fixed delay of 1.5 seconds
   }
 
   const handleKeyPress = (e: React.KeyboardEvent) => {

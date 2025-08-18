@@ -73,7 +73,7 @@ export async function POST(request: NextRequest) {
           
           <p>In the meantime, feel free to:</p>
           <ul>
-            <li>Connect with me on <a href="https://linkedin.com/in/avni-girish" style="color: #8b5cf6;">LinkedIn</a></li>
+            <li>Connect with me on <a href="https://www.linkedin.com/in/avni-girish/" style="color: #8b5cf6;">LinkedIn</a></li>
             <li>Check out my projects on <a href="https://github.com/avnigirish" style="color: #8b5cf6;">GitHub</a></li>
             <li>View my <a href="${process.env.NEXT_PUBLIC_APP_URL}/resume.pdf" style="color: #8b5cf6;">resume</a></li>
           </ul>
