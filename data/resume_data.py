@@ -65,74 +65,48 @@ AWARDS = [
     "1st place in the Advanced Category - HackSBPL (2021)"
 ]
 
-# Work Experience (Enhanced with LinkedIn-style details)
+# Work Experience
 WORK_EXPERIENCE = [
     {
-        "company": "Cognition and Learning Center",
+        "company": "Rutgers University-New Brunswick",
         "location": "New Brunswick, NJ",
-        "company_description": "Rutgers University research center focusing on cognitive development and learning processes",
+        "company_description": "Leading public research university",
         "positions": [
             {
-                "title": "Food Project Research Lead",
-                "period": "May 2025 - Present",
-                "duration": "9+ months",
-                "employment_type": "Research Leadership",
-                "achievements": [
-                    "Directed a 200+ participant cognitive-nutrition study, managing preschool testing visits and microbiome lab coordination for stool sample analysis",
-                    "Mentored 4+ RAs in ethical research protocols and RStudio analytics, increasing team productivity 40%",
-                    "Discovered microbiome-cognition correlations through advanced EDA and interactive visualizations",
-                    "Published preliminary findings in internal research reports with statistical significance testing",
-                    "Coordinated cross-functional collaboration between psychology, nutrition, and microbiology teams"
-                ],
-                "skills_developed": ["Research Leadership", "Team Management", "Statistical Analysis", "Data Visualization", "Cross-functional Collaboration"]
-            },
-            {
-                "title": "Undergraduate Research Assistant", 
+                "title": "Undergraduate Research Assistant",
                 "period": "Jan 2024 - Present",
-                "duration": "12+ months",
-                "employment_type": "Research Position",
+                "duration": "1 yr 8 mos",
+                "employment_type": "Hybrid",
                 "achievements": [
-                    "Established a 30% correlation between preschool math sense and academic math skills through computerized games and tests, using R, Python and MATLAB for analysis",
-                    "Identified 25% improved recall tactics in children via game-based studies through explanatory data analysis",
-                    "Revealed a 20% belief shift impacting motivation in children's cognitive development through qualitative data analysis",
-                    "Developed automated data collection pipelines reducing manual processing time by 60%",
-                    "Contributed to 3 research papers currently under review for publication"
+                    "Working under Dr. Jenny Wang, the study focused on examining the cognitive components and learning systems underlying the understanding of number and quantity in humans across the lifespan and how experiences may influence the way the world is perceived and understood. The research uses multiple approaches, methodologies, and age groups to study these important issues.",
+                    "Food Project poster pdf: The Food Project examined how hunger affects children's cognitive processes in numerical decision-making. Hungry children show higher accuracy on challenging."
                 ],
-                "skills_developed": ["R Programming", "Python", "MATLAB", "Statistical Modeling", "Research Design", "Data Collection"]
-            }
-        ]
-    },
-    {
-        "company": "Rutgers University Department of Computer Science",
-        "location": "New Brunswick, NJ", 
-        "company_description": "Premier computer science department offering comprehensive education and research opportunities",
-        "positions": [
+                "skills_developed": ["Data Collection", "Python (Programming Language)", "Data Visualization", "MATLAB"]
+            },
             {
                 "title": "Rutgers Computing Academic Tutor",
                 "period": "Jan 2024 - Present",
-                "duration": "12+ months",
-                "employment_type": "Academic Support",
+                "duration": "1 yr 8 mos",
+                "employment_type": "On-site",
                 "achievements": [
-                    "Provided comprehensive tutoring support for 50+ students in core CS courses including Data Structures, Algorithms, and Software Methodology",
-                    "Achieved 90% student satisfaction rate with average grade improvement of 1.2 letter grades",
-                    "Developed innovative teaching materials and visual aids for complex algorithmic concepts",
-                    "Conducted weekly study sessions and exam prep workshops for groups of 15-20 students",
-                    "Mentored underrepresented students in CS, contributing to improved retention rates"
+                    "Facilitated academic support for over 650 students enrolled in CS111 and CS112 courses through weekly office hours.",
+                    "Contributed to the creation of an inclusive community, fostering encouragement and support for diverse student identities.",
+                    "Collaborated with Instructors and Learning Assistants, assisting in guiding students to advance their knowledge in the CS program."
                 ],
-                "skills_developed": ["Technical Communication", "Mentoring", "Curriculum Development", "Public Speaking", "Educational Technology"]
+                "skills_developed": ["Java", "Data Structures", "Peer Tutoring"]
             }
         ]
     },
     {
-        "company": "Prudential Financial",
-        "location": "Newark, NJ",
-        "company_description": "Fortune Global 500 company providing insurance, investment management, and financial services",
+        "company": "BNY",
+        "location": "Lake Mary, FL",
+        "company_description": "Global financial services company",
         "positions": [
             {
-                "title": "Software Engineering Intern",
-                "period": "Jun 2024 - Aug 2024",
-                "duration": "3 months",
-                "employment_type": "Internship",
+                "title": "InfoSec Data Science Intern",
+                "period": "Jun 2025 - Aug 2025",
+                "duration": "3 mos",
+                "employment_type": "Hybrid",
                 "achievements": [
                     "Developed AI-powered sentiment analysis tools using Python and NLP libraries, processing 10,000+ customer feedback entries",
                     "Built dynamic React.js UI components integrated with FastAPI backend, serving 500+ internal users",
@@ -141,67 +115,118 @@ WORK_EXPERIENCE = [
                     "Collaborated with senior engineers on Agile development practices and code review processes",
                     "Presented final project to C-level executives, receiving commendation for innovation and impact"
                 ],
-                "skills_developed": ["React.js", "FastAPI", "Python", "PostgreSQL", "Agile Development", "Enterprise Software", "Data Analytics"]
+                "skills_developed": ["Artificial Intelligence (AI)", "Engineering", "Python (Programming Language)"]
             }
         ]
     },
     {
-        "company": "Rutgers Blueprint",
-        "location": "New Brunswick, NJ",
-        "company_description": "Student organization developing technology solutions for nonprofits and social impact",
-        "positions": [
-            {
-                "title": "Software Engineering Fellow",
-                "period": "Sep 2023 - May 2024", 
-                "duration": "9 months",
-                "employment_type": "Fellowship",
-                "achievements": [
-                    "Led development of web application for local nonprofit serving 200+ community members",
-                    "Implemented full-stack solution using React, Node.js, and MongoDB with 99.9% uptime",
-                    "Coordinated 6-person development team using Agile methodologies and sprint planning",
-                    "Conducted user research and usability testing with 25+ nonprofit staff members",
-                    "Delivered technical workshops on modern web development to 40+ fellow students",
-                    "Established CI/CD pipelines reducing deployment time from hours to minutes"
-                ],
-                "skills_developed": ["Full-Stack Development", "Team Leadership", "User Research", "DevOps", "Nonprofit Sector Experience", "Project Management"]
-            }
-        ]
-    }
-]
-                "achievements": [
-                    "Mentored and taught 650+ students in algorithms, data structures, and OOP (Java), improving cohort pass rates by 15%",
-                    "Collaborated with Instructors and Learning Assistants, assisting in guiding students to advance their knowledge in the CS program"
-                ]
-            }
-        ]
-    },
-    {
-        "company": "The Bank of New York Mellon Corporation",
-        "location": "Lake Mary, FL",
-        "positions": [
-            {
-                "title": "InfoSec Data Science & AI Engineer Intern | AI Hub and Digital Engineering",
-                "period": "Jun 2025 - Aug 2025",
-                "achievements": [
-                    "Led AI development of AURA - a self-optimizing dynamic UI system combining Claude 4's financial insight generation with GPT-4.1's AI-powered UI construction, accelerating dashboard development from days to minutes",
-                    "Engineered AI-driven feedback loops where natural language inputs dynamically regenerate UI components, reducing revisions by 65% while boosting EDA accuracy and analyst productivity 3.5x",
-                    "Pioneered an intelligent agent framework where AI autonomously routes tasks between planning (Claude 4) and programming (GPT-4.1) agents via React.js/FastAPI-powered dynamic interfaces"
-                ]
-            }
-        ]
-    },
-    {
-        "company": "New Jersey Economic Development Authority",
-        "location": "Trenton, NJ",
+        "company": "New Jersey Economic Development Authority (NJEDA)",
+        "location": "Trenton, NJ", 
+        "company_description": "State economic development agency",
         "positions": [
             {
                 "title": "IT Business Analyst Intern",
                 "period": "Jun 2024 - Aug 2024",
+                "duration": "3 mos",
+                "employment_type": "Remote",
                 "achievements": [
-                    "Collected and analyzed business requirements for projects exceeding $500,000, utilizing Azure DevOps, Dynamics365, and Visio to translate requirements into user stories and document them effectively",
-                    "Coordinated with 5 business units and a development team of 10 members, managing roadblocks, gathering feedback, and facilitating release planning for over 20 project milestones",
-                    "Conducted competitor research on state policies, contributing to strategic planning discussions that impacted over 250 applicants for various EDA programs"
-                ]
+                    "Collected and analyzed business requirements for projects exceeding $500,000, utilizing Azure DevOps, Dynamics365, and Visio to translate requirements into user stories and document them effectively.",
+                    "Coordinated with 5 business units and a development team of 10 members, managing roadblocks, gathering feedback, and facilitating release planning for over 20 project milestones.",
+                    "Conducted competitor research on state policies, contributing to strategic planning discussions that impacted over 250 applicants for various EDA programs."
+                ],
+                "skills_developed": ["Microsoft Dynamics CRM", "Visio", "Azure DevOps", "Azure SQL", "JavaScript", "Microsoft Excel"]
+            }
+        ]
+    },
+    {
+        "company": "Accenture",
+        "location": "New York City Metropolitan Area",
+        "company_description": "Global professional services company",
+        "positions": [
+            {
+                "title": "Elevate to Innovate Diversity Extern",
+                "period": "May 2024 - Jun 2024",
+                "duration": "2 mos",
+                "employment_type": "Remote",
+                "achievements": [
+                    "Developed AI-driven solutions and integrated advanced AI models into business processes to enhance innovation.",
+                    "Acquired skills in data collection, analysis, and visualization using tools like Tableau for data-driven decisions.",
+                    "Learned to configure and customize SAP ERP systems, focusing on real-time digital capabilities and integration with AI/ML and IoT technologies."
+                ],
+                "skills_developed": ["Project Management", "Team Building", "Communication", "Organization Skills", "Lifting Equipment"]
+            }
+        ]
+    },
+    {
+        "company": "Rutgers University Programming Association",
+        "location": "New Brunswick, NJ",
+        "company_description": "Student programming organization",
+        "positions": [
+            {
+                "title": "Special Ops Member",
+                "period": "Sep 2023 - May 2024",
+                "duration": "9 mos",
+                "employment_type": "Part-time",
+                "achievements": [
+                    "Offered comprehensive event staffing, adept customer service, and efficient logistical support.",
+                    "Provided students with valuable opportunities to contribute to a wide array of committee-led events, fostering hands-on experience and skill development."
+                ],
+                "skills_developed": ["Project Management", "Team Building", "Communication", "Organization Skills", "Lifting Equipment"]
+            }
+        ]
+    },
+    {
+        "company": "Morgan Stanley",
+        "location": "New York City Metropolitan Area",
+        "company_description": "Global financial services firm",
+        "positions": [
+            {
+                "title": "Early Insights Participant",
+                "period": "Feb 2024 - Mar 2024",
+                "duration": "2 mos",
+                "employment_type": "On-site",
+                "achievements": [
+                    "Selected to participate in Morgan Stanley's Early Insights Program, with a focus on fostering diversity and inclusion within the technology sector of finance.",
+                    "Engaged in immersive sessions and networking events with leaders in the Technology division, gaining exposure to innovative financial technologies and systems.",
+                    "Participated in diversity sessions, employee networks, panels, and workshops designed to enhance understanding of Morgan Stanley's technology strategies and operations."
+                ],
+                "skills_developed": []
+            }
+        ]
+    },
+    {
+        "company": "Lead Up Academy | Rutgers University-New Brunswick",
+        "location": "New Brunswick, NJ",
+        "company_description": "Leadership development program",
+        "positions": [
+            {
+                "title": "First Year Fellowship Fellow",
+                "period": "Jan 2023 - May 2023",
+                "duration": "5 mos",
+                "employment_type": "On-site",
+                "achievements": [
+                    "Participated in a 15-week, 15-credit leadership course, which enhanced and cultivated leadership and organizational excellence through team building, communication, ethical decision-making and creative leadership.",
+                    "Chosen to be part of a cohort of 100 people to participate in the First Year Fellowship."
+                ],
+                "skills_developed": ["Teamwork", "Leadership", "Team Building", "Communication", "Organization Skills"]
+            }
+        ]
+    },
+    {
+        "company": "Blueprint - Apprenticeship",
+        "location": "New Brunswick, NJ",
+        "company_description": "Tech for social good organization",
+        "positions": [
+            {
+                "title": "Software Engineering Fellow",
+                "period": "Aug 2023 - May 2024",
+                "duration": "10 mos",
+                "employment_type": "Hybrid",
+                "achievements": [
+                    "Acting in the capacity to learn how to build both the frontend and backend architectural components with React, JavaScript and HTML, Learned how to build both the frontend and backend architectural components, apply data structures to real-world scenarios, and use version control to collaborate with other engineers.",
+                    "Chosen to be part of a cohort of 35 people to participate in the software engineering fellowship."
+                ],
+                "skills_developed": ["Software Programming", "JavaScript", "Team Building", "React.js", "Cascading Style Sheets (CSS)"]
             }
         ]
     }

@@ -16,7 +16,7 @@ import base64
 # Add the project root to the Python path
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
-from data.resume_data_enhanced import PERSONAL_INFO, EDUCATION, SKILLS, WORK_EXPERIENCE, PROJECTS
+from data.resume_data import PERSONAL_INFO, EDUCATION, SKILLS, WORK_EXPERIENCE, PROJECTS
 from utils.ai_tools import AITools
 
 # Configure Streamlit page
@@ -34,13 +34,61 @@ def init_ai_tools():
 
 ai_tools = init_ai_tools()
 
-# Enhanced CSS for visual appeal
+def create_company_logo_3d(company_name):
+    """Create a 3D visualization for company logos"""
+    # Company logo data mapping
+    logo_data = {
+        "Rutgers University-New Brunswick": {"color": "#cc0033", "symbol": "R"},
+        "BNY": {"color": "#0066cc", "symbol": "BNY"},
+        "New Jersey Economic Development Authority (NJEDA)": {"color": "#009639", "symbol": "NJ"},
+        "Accenture": {"color": "#a100ff", "symbol": "A"},
+        "Rutgers University Programming Association": {"color": "#cc0033", "symbol": "R"},
+        "Morgan Stanley": {"color": "#001a4d", "symbol": "MS"},
+        "Lead Up Academy | Rutgers University-New Brunswick": {"color": "#f59e0b", "symbol": "L"},
+        "Blueprint": {"color": "#3b82f6", "symbol": "B"}
+    }
+    
+    logo_info = logo_data.get(company_name, {"color": "#6b7280", "symbol": "?"})
+    
+    # Create 3D scatter plot for logo
+    fig = go.Figure(data=[go.Scatter3d(
+        x=[0], y=[0], z=[0],
+        mode='markers+text',
+        marker=dict(
+            size=30,
+            color=logo_info["color"],
+            opacity=0.8,
+            line=dict(width=2, color='white')
+        ),
+        text=[logo_info["symbol"]],
+        textfont=dict(size=16, color='white'),
+        textposition="middle center",
+        showlegend=False
+    )])
+    
+    fig.update_layout(
+        scene=dict(
+            xaxis=dict(visible=False),
+            yaxis=dict(visible=False),
+            zaxis=dict(visible=False),
+            camera=dict(eye=dict(x=0, y=0, z=1.5))
+        ),
+        margin=dict(l=0, r=0, t=0, b=0),
+        paper_bgcolor='rgba(0,0,0,0)',
+        plot_bgcolor='rgba(0,0,0,0)',
+        width=60,
+        height=60
+    )
+    
+    return fig
+
+# Enhanced CSS for modern, clean design
 st.markdown("""
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap');
     
     .stApp {
-        font-family: 'Space Grotesk', sans-serif;
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     }
     
@@ -56,181 +104,151 @@ st.markdown("""
     .stDeployButton {display:none;}
     .stDecoration {display:none;}
     
-    /* Custom hero */
+    /* Clean hero section */
     .hero-container {
         background: linear-gradient(135deg, #8B5CF6 0%, #EC4899 50%, #F59E0B 100%);
-        border-radius: 20px;
+        border-radius: 16px;
         padding: 3rem 2rem;
         text-align: center;
         color: white;
         margin-bottom: 2rem;
-        box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-        position: relative;
-        overflow: hidden;
-    }
-    
-    .hero-container::before {
-        content: '';
-        position: absolute;
-        top: -50%;
-        left: -50%;
-        width: 200%;
-        height: 200%;
-        background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
-        animation: rotate 20s linear infinite;
-    }
-    
-    @keyframes rotate {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
+        box-shadow: 0 25px 50px rgba(0,0,0,0.15);
     }
     
     .hero-title {
-        font-size: 3.5rem;
+        font-size: 3rem;
         font-weight: 700;
         margin-bottom: 1rem;
-        position: relative;
-        z-index: 2;
-        text-shadow: 0 0 30px rgba(255,255,255,0.5);
+        letter-spacing: -0.02em;
     }
     
     .hero-subtitle {
-        font-size: 1.3rem;
-        opacity: 0.95;
-        position: relative;
-        z-index: 2;
-        margin-bottom: 1rem;
+        font-size: 1.2rem;
+        font-weight: 400;
+        opacity: 0.9;
+        letter-spacing: 0.01em;
     }
     
-    /* Enhanced cards */
-    .project-card {
+    /* Section headers */
+    .section-header {
+        font-size: 2rem;
+        font-weight: 600;
+        color: white;
+        margin: 2rem 0 1.5rem 0;
+        padding-bottom: 0.5rem;
+        border-bottom: 2px solid rgba(255,255,255,0.2);
+        letter-spacing: -0.01em;
+    }
+    
+    /* Cards */
+    .demo-container, .experience-card, .project-card {
         background: rgba(255, 255, 255, 0.1);
-        backdrop-filter: blur(20px);
         border: 1px solid rgba(255, 255, 255, 0.2);
-        border-radius: 15px;
-        padding: 2rem;
-        margin: 1rem 0;
-        transition: all 0.3s ease;
-        border-left: 4px solid #8B5CF6;
-    }
-    
-    .project-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 15px 30px rgba(0,0,0,0.2);
-        background: rgba(255, 255, 255, 0.15);
-    }
-    
-    .demo-container {
-        background: rgba(255, 255, 255, 0.08);
         border-radius: 12px;
         padding: 1.5rem;
         margin: 1rem 0;
-        border: 1px solid rgba(139, 92, 246, 0.3);
-    }
-    
-    .metric-big {
-        font-size: 2.5rem;
-        font-weight: 700;
-        color: #8B5CF6;
-        text-align: center;
-        margin: 0;
-    }
-    
-    .metric-label {
-        text-align: center;
-        color: rgba(255,255,255,0.8);
-        font-size: 0.9rem;
-        margin-top: 0.5rem;
-    }
-    
-    .experience-card {
-        background: rgba(255, 255, 255, 0.1);
-        border-radius: 15px;
-        padding: 2rem;
-        margin: 1rem 0;
-        border-left: 4px solid #EC4899;
-        backdrop-filter: blur(15px);
-    }
-    
-    .skill-pill {
-        background: rgba(139, 92, 246, 0.3);
-        color: white;
-        padding: 0.3rem 0.8rem;
-        border-radius: 15px;
-        font-size: 0.8rem;
-        margin: 0.2rem;
-        display: inline-block;
-        border: 1px solid rgba(139, 92, 246, 0.5);
-    }
-    
-    .section-header {
-        color: white;
-        font-size: 2.2rem;
-        font-weight: 600;
-        margin: 2rem 0 1rem 0;
-        text-align: center;
-        position: relative;
-    }
-    
-    .section-header::after {
-        content: '';
-        position: absolute;
-        bottom: -8px;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 80px;
-        height: 3px;
-        background: linear-gradient(45deg, #8B5CF6, #EC4899);
-        border-radius: 2px;
-    }
-    
-    /* Interactive elements */
-    .stButton > button {
-        background: linear-gradient(45deg, #8B5CF6, #EC4899);
-        color: white;
-        border: none;
-        border-radius: 25px;
-        padding: 0.5rem 2rem;
-        font-weight: 600;
+        backdrop-filter: blur(10px);
         transition: all 0.3s ease;
     }
     
-    .stButton > button:hover {
+    .demo-container:hover, .experience-card:hover, .project-card:hover {
+        background: rgba(255, 255, 255, 0.15);
+        border-color: rgba(255, 255, 255, 0.3);
         transform: translateY(-2px);
-        box-shadow: 0 10px 20px rgba(139, 92, 246, 0.3);
     }
     
-    /* Custom selectbox and inputs */
-    .stSelectbox > div > div {
+    /* Timeline */
+    .timeline-item {
         background: rgba(255, 255, 255, 0.1);
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        border-radius: 10px;
+        border-left: 3px solid #F59E0B;
+        border-radius: 8px;
+        padding: 1.5rem;
+        margin: 1rem 0;
+        backdrop-filter: blur(10px);
     }
     
-    .stTextInput > div > div > input {
+    .company-header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 1rem;
+    }
+    
+    .company-logo {
+        width: 48px;
+        height: 48px;
+        border-radius: 8px;
+        margin-right: 1rem;
+        background: white;
+        padding: 8px;
+    }
+    
+    .position-title {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: white;
+        margin-bottom: 0.25rem;
+    }
+    
+    .position-period {
+        font-size: 0.9rem;
+        color: rgba(255, 255, 255, 0.7);
+        margin-bottom: 1rem;
+    }
+    
+    .skill-tag {
+        display: inline-block;
+        background: rgba(139, 92, 246, 0.8);
+        color: white;
+        padding: 0.25rem 0.75rem;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 500;
+        margin: 0.2rem 0.2rem 0.2rem 0;
+    }
+    
+    /* Clean buttons */
+    .stButton > button {
+        background: linear-gradient(135deg, #8B5CF6, #EC4899);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        padding: 0.5rem 1rem;
+        font-weight: 500;
+        transition: all 0.2s ease;
+    }
+    
+    .stButton > button:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(139, 92, 246, 0.4);
+    }
+    
+    /* Text areas and inputs */
+    .stTextArea textarea {
         background: rgba(255, 255, 255, 0.1);
         border: 1px solid rgba(255, 255, 255, 0.2);
-        border-radius: 10px;
+        border-radius: 8px;
         color: white;
     }
     
-    .stTextArea > div > div > textarea {
-        background: rgba(255, 255, 255, 0.1);
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        border-radius: 10px;
-        color: white;
+    /* Clean plotly charts */
+    .js-plotly-plot {
+        border-radius: 12px;
+        overflow: hidden;
     }
+</style>""", unsafe_allow_html=True)
+        def create_company_logo_3d(company_name):
+    
+        """Create a 3D visualization for company logos"""
 </style>
 """, unsafe_allow_html=True)
 
-def create_animated_metric(value, label, icon="📊"):
+def create_animated_metric(value, label, icon=""):
     """Create an animated metric display"""
     col1, col2, col3 = st.columns([1, 2, 1])
     with col2:
         st.markdown(f"""
         <div style="text-align: center; padding: 1rem; background: rgba(255,255,255,0.1); 
                     border-radius: 15px; margin: 0.5rem 0; backdrop-filter: blur(10px);">
-            <div style="font-size: 2rem; margin-bottom: 0.5rem;">{icon}</div>
             <div class="metric-big">{value}</div>
             <div class="metric-label">{label}</div>
         </div>
@@ -274,7 +292,7 @@ def create_3d_scatter_plot():
 
 def sentiment_analysis_demo():
     """Interactive sentiment analysis demo"""
-    st.markdown('<div class="section-header">🤖 AI Sentiment Analysis Demo</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-header">AI Sentiment Analysis Demo</div>', unsafe_allow_html=True)
     
     # Sample texts
     sample_texts = [
@@ -302,7 +320,7 @@ def sentiment_analysis_demo():
             key="sentiment_input"
         )
         
-        if st.button("🔍 Analyze Sentiment", key="analyze_btn"):
+        if st.button("Analyze Sentiment", key="analyze_btn"):
             if user_input:
                 with st.spinner("Analyzing sentiment..."):
                     time.sleep(1)  # Add some suspense
@@ -376,7 +394,7 @@ def sentiment_analysis_demo():
 
 def cognitive_research_demo():
     """Demo of cognitive research analysis"""
-    st.markdown('<div class="section-header">🧠 Cognitive Research Demo</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-header">Cognitive Research Demo</div>', unsafe_allow_html=True)
     
     # Create sample research data
     np.random.seed(42)
@@ -481,7 +499,7 @@ def cognitive_research_demo():
 
 def financial_analytics_demo():
     """Demo of financial analytics dashboard"""
-    st.markdown('<div class="section-header">💼 Financial Analytics Demo</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-header">Financial Analytics Demo</div>', unsafe_allow_html=True)
     
     # Generate sample financial data
     np.random.seed(42)
@@ -571,19 +589,19 @@ def financial_analytics_demo():
     col1, col2, col3 = st.columns(3)
     
     with col1:
-        if st.button("📈 Growth Analysis"):
+        if st.button("Growth Analysis"):
             growth_rate = ((financial_data['daily_users'].iloc[-30:].mean() / 
                            financial_data['daily_users'].iloc[:30].mean()) - 1) * 100
             st.success(f"User growth rate: +{growth_rate:.1f}% over the year")
     
     with col2:
-        if st.button("🎯 Peak Performance"):
+        if st.button("Peak Performance"):
             peak_date = financial_data.loc[financial_data['daily_users'].idxmax(), 'date']
             peak_users = financial_data['daily_users'].max()
             st.info(f"Peak usage: {peak_users:.0f} users on {peak_date.strftime('%B %d')}")
     
     with col3:
-        if st.button("📊 Sentiment Insights"):
+        if st.button("Sentiment Insights"):
             avg_sentiment = financial_data['sentiment_score'].mean()
             if avg_sentiment > 0.6:
                 st.success(f"Overall sentiment: Very Positive ({avg_sentiment:.2f})")
@@ -592,7 +610,7 @@ def financial_analytics_demo():
 
 def create_experience_timeline():
     """Create an interactive timeline of experiences"""
-    st.markdown('<div class="section-header">💼 Professional Journey</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-header">Professional Journey</div>', unsafe_allow_html=True)
     
     # Enhanced experience data with dates
     timeline_data = []
@@ -663,7 +681,7 @@ def create_experience_timeline():
                 <h3 style="color: white; margin-bottom: 0.5rem;">{position['title']}</h3>
                 <h4 style="color: #EC4899; margin-bottom: 0.5rem;">{experience['company']}</h4>
                 <p style="color: rgba(255,255,255,0.8); margin-bottom: 1rem;">
-                    📍 {experience['location']} | 📅 {position['period']}
+                    {experience['location']} | {position['period']}
                 </p>
                 <div style="color: rgba(255,255,255,0.9);">
             """, unsafe_allow_html=True)
@@ -675,7 +693,7 @@ def create_experience_timeline():
 
 def skills_radar_chart():
     """Create an interactive skills radar chart"""
-    st.markdown('<div class="section-header">⚡ Skills Proficiency</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-header">Skills Proficiency</div>', unsafe_allow_html=True)
     
     # Define skill categories and levels
     categories = [
@@ -759,7 +777,7 @@ def skills_radar_chart():
 
 def career_insights_dashboard():
     """Create a career insights dashboard"""
-    st.markdown('<div class="section-header">📈 Career Analytics</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-header">Career Analytics</div>', unsafe_allow_html=True)
     
     # Career progression metrics
     col1, col2, col3, col4 = st.columns(4)
@@ -847,16 +865,16 @@ def main():
         <h1 class="hero-title">{PERSONAL_INFO['name']}</h1>
         <p class="hero-subtitle">AI/ML Engineer & Cognitive Science Researcher</p>
         <p style="font-size: 1.1rem; opacity: 0.9; position: relative; z-index: 2;">
-            🎓 Computer Science & Cognitive Science Double Major | Rutgers University<br>
-            📍 {PERSONAL_INFO['location']} | 📧 {PERSONAL_INFO['email']}
+            Computer Science & Cognitive Science Double Major | Rutgers University<br>
+            {PERSONAL_INFO['location']} | {PERSONAL_INFO['email']}
         </p>
     </div>
     """, unsafe_allow_html=True)
     
     # Main content sections
     tabs = st.tabs([
-        "🏠 Overview", "🧠 Project Demos", "💼 Experience", "⚡ Skills", 
-        "📈 Analytics", "🤖 AI Tools", "📞 Contact"
+        "Overview", "Project Demos", "Experience", "Skills", 
+        "Analytics", "AI Tools", "Contact"
     ])
     
     with tabs[0]:  # Overview

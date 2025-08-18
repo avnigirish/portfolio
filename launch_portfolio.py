@@ -40,10 +40,10 @@ def launch_visual_portfolio():
         # Change to the portfolio directory
         os.chdir(Path(__file__).parent)
         
-        # Run the visual portfolio
+        # Run the fixed visual portfolio
         subprocess.run([
             sys.executable, '-m', 'streamlit', 'run', 
-            'visual_portfolio.py',
+            'visual_portfolio_fixed.py',
             '--server.port=8501',
             '--browser.gatherUsageStats=false'
         ])
