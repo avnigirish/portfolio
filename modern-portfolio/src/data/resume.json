@@ -1,0 +1,204 @@
+{
+  "personalInfo": {
+    "name": "Avni Girish",
+    "phone": "(732) 829-9689",
+    "email": "avni123.girish@gmail.com",
+    "linkedin": "linkedin.com/in/avni-girish",
+    "github": "github.com/avnigirish",
+    "location": "New Brunswick, NJ",
+    "title": "Computer Science & Cognitive Science Student",
+    "subtitle": "AI Researcher | Software Engineer | Data Scientist"
+  },
+  "education": {
+    "university": "Rutgers University–New Brunswick",
+    "location": "New Brunswick, NJ",
+    "degree": "Bachelor of Science in Computer Science and Cognitive Science - Double Major",
+    "graduation": "Dec 2025",
+    "coursework": [
+      "Design and Analysis of Computer Algorithms",
+      "Data Structures and Algorithms",
+      "Discrete Structures I & II",
+      "Computer Architecture",
+      "Software Methodology",
+      "Principles of Information and Data Management",
+      "Mind/Machines & Persons",
+      "Introduction to Cognitive Science",
+      "Cognition",
+      "Intro to Artificial Intelligence",
+      "Intro to Data Science",
+      "Data Science and Data Management"
+    ],
+    "organizations": [
+      "Undergraduate Alliance of Computer Science",
+      "Women in Computer Science",
+      "Rutgers University Programming Association",
+      "Women in Science and Engineering Program-Douglass Residential College"
+    ]
+  },
+  "skills": {
+    "languages": ["Python", "Java", "C", "C#", "C++", "R", "JavaScript", "SQL"],
+    "aiMlTools": [
+      "Pandas", "Hugging Face", "OpenAI API", "Claude 4", "GPT-4", 
+      "NLP", "EDA", "Agentic RAG", "MCP", "Sentiment Analysis"
+    ],
+    "frameworks": [
+      "FastAPI", "React.js", "Next.js", "Flask", "Node.js", 
+      "Streamlit", "AngularJS"
+    ],
+    "databases": ["MySQL", "PostgreSQL", "MongoDB", "SQLite", "Firebase"],
+    "tools": ["Git", "Azure DevOps", "MATLAB", "Unity"]
+  },
+  "workExperience": [
+    {
+      "company": "Rutgers University-New Brunswick",
+      "location": "New Brunswick, NJ",
+      "companyDescription": "Leading public research university",
+      "logo": "🎓",
+      "color": "#cc0033",
+      "positions": [
+        {
+          "title": "Undergraduate Research Assistant",
+          "period": "Jan 2024 - Present",
+          "duration": "1 yr 8 mos",
+          "employmentType": "Hybrid",
+          "achievements": [
+            "Working under Dr. Jenny Wang, the study focused on examining the cognitive components and learning systems underlying the understanding of number and quantity in humans across the lifespan and how experiences may influence the way the world is perceived and understood.",
+            "Food Project: Examined how hunger affects children's cognitive processes in numerical decision-making. Hungry children show higher accuracy on challenging tasks."
+          ],
+          "skillsDeveloped": ["Data Collection", "Python", "Data Visualization", "MATLAB"]
+        },
+        {
+          "title": "Rutgers Computing Academic Tutor",
+          "period": "Jan 2024 - Present",
+          "duration": "1 yr 8 mos",
+          "employmentType": "On-site",
+          "achievements": [
+            "Facilitated academic support for over 650 students enrolled in CS111 and CS112 courses through weekly office hours.",
+            "Contributed to the creation of an inclusive community, fostering encouragement and support for diverse student identities.",
+            "Collaborated with Instructors and Learning Assistants, assisting in guiding students to advance their knowledge in the CS program."
+          ],
+          "skillsDeveloped": ["Java", "Data Structures", "Peer Tutoring"]
+        }
+      ]
+    },
+    {
+      "company": "BNY",
+      "location": "Lake Mary, FL",
+      "companyDescription": "Global financial services company specializing in financial technology and digital transformation initiatives",
+      "logo": "🏦",
+      "color": "#0066cc",
+      "positions": [
+        {
+          "title": "InfoSec Data Science and AI Engineer Intern",
+          "period": "Jun 2025 - Aug 2025",
+          "duration": "3 mos",
+          "employmentType": "Hybrid",
+          "achievements": [
+            "Developed AI-powered sentiment analysis tools using Python and NLP libraries, processing 10,000+ customer feedback entries",
+                    "Built dynamic React.js UI components integrated with FastAPI backend, serving 500+ internal users",
+                    "Implemented real-time data visualization dashboards using Plotly and D3.js for executive reporting",
+                    "Optimized database queries resulting in 35% faster data retrieval for analytics workflows",
+                    "Collaborated with senior engineers on Agile development practices and code review processes"
+          ],
+          "skillsDeveloped": ["Artificial Intelligence", "Engineering", "Python", "Cybersecurity"]
+        }
+      ]
+    },
+    {
+      "company": "New Jersey Economic Development Authority (NJEDA)",
+      "location": "Trenton, NJ",
+      "companyDescription": "State economic development agency",
+      "logo": "🏛️",
+      "color": "#009639",
+      "positions": [
+        {
+          "title": "IT Business Analyst Intern",
+          "period": "Jun 2024 - Aug 2024",
+          "duration": "3 mos",
+          "employmentType": "Remote",
+          "achievements": [
+            "Collected and analyzed business requirements for projects exceeding $500,000, utilizing Azure DevOps, Dynamics365, and Visio.",
+            "Coordinated with 5 business units and a development team of 10 members, managing roadblocks and facilitating release planning for over 20 project milestones.",
+            "Conducted competitor research on state policies, contributing to strategic planning discussions that impacted over 250 applicants."
+          ],
+          "skillsDeveloped": ["Microsoft Dynamics CRM", "Visio", "Azure DevOps", "Azure SQL", "JavaScript", "Microsoft Excel"]
+        }
+      ]
+    },
+    {
+      "company": "Accenture",
+      "location": "New York City Metropolitan Area",
+      "companyDescription": "Global professional services company",
+      "logo": "⚡",
+      "color": "#a100ff",
+      "positions": [
+        {
+          "title": "Elevate to Innovate Diversity Extern",
+          "period": "May 2024 - Jun 2024",
+          "duration": "2 mos",
+          "employmentType": "Remote",
+          "achievements": [
+            "Developed AI-driven solutions and integrated advanced AI models into business processes to enhance innovation.",
+            "Acquired skills in data collection, analysis, and visualization using tools like Tableau for data-driven decisions.",
+            "Learned to configure and customize SAP ERP systems, focusing on real-time digital capabilities and integration with AI/ML and IoT technologies."
+          ],
+          "skillsDeveloped": ["Artificial Intelligence", "SAP", "Tableau", "Data Visualization", "Business Process Innovation"]
+        }
+      ]
+    },
+    {
+      "company": "Morgan Stanley",
+      "location": "New York, NY",
+      "companyDescription": "Global financial services firm",
+      "logo": "📈",
+      "color": "#001a4d",
+      "positions": [
+        {
+          "title": "Early Insights Program Participant",
+          "period": "Feb 2024",
+          "duration": "1 mos",
+          "employmentType": "On-site",
+          "achievements": [
+            "Participated in intensive technology training program focused on financial technology solutions.",
+            "Worked on projects involving data analysis and financial modeling.",
+            "Collaborated with senior analysts on technology implementations."
+          ],
+          "skillsDeveloped": ["Financial Technology", "Data Analysis", "Financial Modeling", "Team Collaboration"]
+        }
+      ]
+    }
+  ],
+  "certifications": [
+    "Python Programming - GirlsComputingLeague (2020)",
+    "First Year Fellowship - Lead Up Academy | Rutgers University-New Brunswick (2023)",
+    "Software Engineering Fellowship - Rutgers Blueprint (2023)",
+    "CS50: Introduction to Computer Science - Harvard University (2023)",
+    "Solve Real-World Data Problems with SQL - Linkedin (2023)",
+    "Social/Behavioral/Epidemiologic Research Investigators - CITI Program (2023)"
+  ],
+  "awards": [
+    "1st place in the Advanced Category - HackSBPL (2021)"
+  ],
+  "projects": [
+    {
+      "name": "MoodSync+: A comprehensive Mental and Physical Wellness App",
+      "period": "Dec 2024 - Present",
+      "description": [
+        "Built an AI-powered platform with Python, FastAPI, and Streamlit, integrating Spotify API to provide personalized recommendations for over 50 mood-based playlists and exercise routines",
+        "Developed NLP features using Hugging Face and OpenAI APIs, achieving 95% accuracy in sentiment analysis and emotion detection for journaling insights",
+        "Designed interactive dashboards with Matplotlib and Plotly, visualizing mood trends for 100+ users while managing a PostgreSQL database for efficient data storage"
+      ],
+      "technologies": ["Python", "FastAPI", "Streamlit", "Spotify API", "Hugging Face", "OpenAI API", "PostgreSQL", "Matplotlib", "Plotly"],
+      "github": "https://github.com/avnigirish/moodsync"
+    },
+    {
+      "name": "Automated Car Simulation",
+      "period": "Sep 2023 - Oct 2023",
+      "description": [
+        "Built an AI-powered car simulation in JavaScript using neural networks and genetic algorithms, optimizing vehicle performance by 20% through ray casting and collision physics"
+      ],
+      "technologies": ["JavaScript", "Neural Networks", "Genetic Algorithms", "Ray Casting"],
+      "github": "https://github.com/avnigirish/Automatic-Car-Simulation"
+    }
+  ]
+}
