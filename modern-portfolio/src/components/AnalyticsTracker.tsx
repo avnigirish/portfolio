@@ -155,6 +155,6 @@ export const trackEvent = async (eventName: string, data?: any) => {
 
 // Track specific interactions
 export const trackContactFormSubmit = () => trackEvent('contact_form_submit')
-export const trackSpotifyInteraction = () => trackEvent('spotify_interaction')
+// Removed trackSpotifyInteraction as part of Spotify feature cleanup.
 export const trackAIChatMessage = (message: string) => trackEvent('ai_chat_message', { messageLength: message.length })
 export const trackProjectView = (projectName: string) => trackEvent('project_view', { project: projectName })

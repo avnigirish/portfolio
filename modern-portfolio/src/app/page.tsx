@@ -10,7 +10,6 @@ import ThreeDBackground from '@/components/ThreeDBackground'
 import AdvancedAnalytics from '@/components/AdvancedAnalytics'
 import Contact from '@/components/Contact'
 import Footer from '@/components/Footer'
-import SpotifyNowPlaying from '@/components/SpotifyNowPlaying'
 import AnimatedBackground from '@/components/AnimatedBackground'
 
 export default function Home() {
@@ -65,7 +64,6 @@ export default function Home() {
       {/* Enhanced Features */}
       <EnhancedAIChat />
       <AdvancedAnalytics />
-      <SpotifyNowPlaying />
     </div>
   )
 }

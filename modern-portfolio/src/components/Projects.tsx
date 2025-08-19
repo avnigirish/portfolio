@@ -125,8 +125,8 @@ function TechnicalProjects() {
   const projects = [
     {
       title: "MoodSync+: Mental & Physical Wellness App",
-      description: "AI-powered platform with Python, FastAPI, and Streamlit, integrating Spotify API for personalized recommendations. Features NLP sentiment analysis with 95% accuracy.",
-      technologies: ["Python", "FastAPI", "Streamlit", "Spotify API", "OpenAI API", "PostgreSQL"],
+  description: "AI-powered platform with Python, FastAPI, and Streamlit. Features NLP sentiment analysis with 95% accuracy.",
+  technologies: ["Python", "FastAPI", "Streamlit", "OpenAI API", "PostgreSQL"],
       github: "https://github.com/avnigirish/moodsync",
       color: "text-purple-500"
     },

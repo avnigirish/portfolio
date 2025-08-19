@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 
+export const dynamic = 'force-dynamic'
+
 // Mock data - in a real app, this would come from a database
 const generateMockAnalytics = () => {
   const now = new Date()

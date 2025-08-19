@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 
 // Helper function to try different models with fallback
-async function tryModelsWithFallback(requestBody: any) {
+async function tryModelsWithFallback(requestBody: Record<string, unknown>) {
   const models = [
     process.env.OPENROUTER_MODEL || 'deepseek/deepseek-chat-v3-0324:free',
     process.env.OPENROUTER_BACKUP_MODEL_1 || 'openai/gpt-oss-20b:free',
@@ -16,14 +16,13 @@ async function tryModelsWithFallback(requestBody: any) {
       // Check if the model supports function calling (deepseek models generally don't)
       const supportsTools = !model.includes('deepseek')
       
-      const modelRequestBody = {
+      const modelRequestBody: Record<string, unknown> = {
         ...requestBody,
         model: model
       }
-      
       // Remove tools if model doesn't support them
-      if (!supportsTools && modelRequestBody.tools) {
-        delete modelRequestBody.tools
+      if (!supportsTools && Object.prototype.hasOwnProperty.call(modelRequestBody, 'tools')) {
+        delete (modelRequestBody as { tools?: unknown }).tools
       }
 
       const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
@@ -69,45 +68,47 @@ async function tryModelsWithFallback(requestBody: any) {
       // Return successful response with model info
       return {
         success: true,
-        data: data,
-        modelUsed: model,
-        attemptNumber: i + 1
       }
+    /*
+    Investigating cognitive components of numerical understanding
+    Using advanced statistical methods and MATLAB for data analysis
+    Contributing to academic understanding of cognitive-behavioral patterns
 
-    } catch (error) {
-      console.error(`Model ${model} encountered error:`, error)
-      
-      // If this is the last model, throw the error
-      if (i === models.length - 1) {
-        throw error
-      }
-      
-      // Otherwise, continue to next model
-      continue
-    }
-  }
-  
-  // This should never be reached, but just in case
-  throw new Error('All models failed unexpectedly')
-}
+    FLAGSHIP PROJECTS:
+    MoodSync+: AI-powered wellness application with Spotify API integration and sentiment analysis
+    Automated Car Simulation: Neural network-based autonomous vehicle navigation system
+    Sentiment Analysis Tools: 95% accuracy NLP models for emotion detection
+    Real-time Data Dashboards: Interactive visualization platforms for complex datasets
 
-export async function POST(request: NextRequest) {
-  try {
-    const { message, context } = await request.json()
+    CAREER TRAJECTORY ANALYSIS:
+    Based on her unique combination of computer science technical skills, cognitive science research background, and diverse internship experience across finance, government, and academia, Avni is positioned for several high-impact career paths:
 
-    // Check if OpenRouter API key is configured
-    if (!process.env.OPENROUTER_API_KEY) {
-      return NextResponse.json(
-        { error: 'OpenRouter API not configured' },
-        { status: 500 }
-      )
-    }
+    1. AI/ML Research Scientist - Her research background and technical skills align perfectly
+    2. Data Science in FinTech - BNY experience + technical skills + behavioral understanding
+    3. Product Manager for AI/UX - Cognitive science + technical implementation knowledge
+    4. Graduate School (PhD) - Strong research foundation and academic performance
+    5. Tech Consulting - Diverse experience + technical depth + business understanding
 
-    // Check if the primary model supports function calling
+    PERSONALITY & APPROACH:
+    Analytical yet human-centered in problem-solving
+    Bridges technical implementation with user psychology
+    Demonstrates leadership through diversity programs and research initiatives
+    Shows versatility through cross-sector experience (finance, government, academia)
+
+    RESPONSE GUIDELINES:
+    Provide deep, detailed responses that demonstrate comprehensive understanding
+    Make intelligent inferences about career paths and opportunities based on her profile
+    Connect her experiences to broader industry trends and opportunities
+    Offer specific insights about how her unique CS + Cognitive Science combination is valuable
+    Be conversational but sophisticated, reflecting her caliber and potential
+    Always structure responses with clear topics, descriptions, key points, and career insights
+
+    Always think about the "why" behind questions and provide strategic career insights.
+    */
     const primaryModel = process.env.OPENROUTER_MODEL || 'deepseek/deepseek-chat-v3-0324:free'
     const supportsTools = !primaryModel.includes('deepseek')
     
-    const requestBody: any = {
+  const requestBody: Record<string, unknown> = {
       messages: [
         {
           role: 'system',
@@ -166,12 +167,16 @@ Always think about the "why" behind questions and provide strategic career insig
       temperature: 0.8,
       max_tokens: 1000
     }
-- Investigating cognitive components of numerical understanding
-- Using advanced statistical methods and MATLAB for data analysis
-- Contributing to academic understanding of cognitive-behavioral patterns
 
-FLAGSHIP PROJECTS:
-- MoodSync+: AI-powered wellness application with Spotify API integration and sentiment analysis
+    // Removed invalid content that was causing parsing errors
+    /*
+    - Investigating cognitive components of numerical understanding
+    - Using advanced statistical methods and MATLAB for data analysis
+    - Contributing to academic understanding of cognitive-behavioral patterns
+
+    FLAGSHIP PROJECTS:
+    - MoodSync+: AI-powered wellness application with Spotify API integration and sentiment analysis
+    */
 - Automated Car Simulation: Neural network-based autonomous vehicle navigation system
 - Sentiment Analysis Tools: 95% accuracy NLP models for emotion detection
 - Real-time Data Dashboards: Interactive visualization platforms for complex datasets

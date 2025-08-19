@@ -91,7 +91,7 @@ export default function AIChat() {
       topic: "Featured Projects & Applications",
       description: "AI-powered applications and innovative technical solutions",
       key_points: [
-        "MoodSync+: AI wellness app with Spotify integration",
+  "MoodSync+: AI wellness app",
         "Automated Car Simulation with neural networks",
         "Sentiment analysis tools with 95% accuracy",
         "Real-time data visualization dashboards"

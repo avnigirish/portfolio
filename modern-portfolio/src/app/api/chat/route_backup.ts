@@ -1,7 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server'
 
+export const dynamic = 'force-dynamic'
+
 // Helper function to try different models with fallback
-async function tryModelsWithFallback(requestBody: any) {
+async function tryModelsWithFallback(requestBody: Record<string, unknown>) {
   const models = [
     process.env.OPENROUTER_MODEL || 'deepseek/deepseek-chat-v3-0324:free',
     process.env.OPENROUTER_BACKUP_MODEL_1 || 'openai/gpt-oss-20b:free',
@@ -16,14 +18,13 @@ async function tryModelsWithFallback(requestBody: any) {
       // Check if the model supports function calling (deepseek models generally don't)
       const supportsTools = !model.includes('deepseek')
       
-      const modelRequestBody = {
+      const modelRequestBody: Record<string, unknown> = {
         ...requestBody,
         model: model
       }
-      
       // Remove tools if model doesn't support them
-      if (!supportsTools && modelRequestBody.tools) {
-        delete modelRequestBody.tools
+      if (!supportsTools && Object.prototype.hasOwnProperty.call(modelRequestBody, 'tools')) {
+        delete (modelRequestBody as { tools?: unknown }).tools
       }
 
       const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
@@ -107,7 +108,7 @@ export async function POST(request: NextRequest) {
     const primaryModel = process.env.OPENROUTER_MODEL || 'deepseek/deepseek-chat-v3-0324:free'
     const supportsTools = !primaryModel.includes('deepseek')
     
-    const requestBody: any = {
+  const requestBody: Record<string, unknown> = {
       messages: [
         {
           role: 'system',
@@ -252,7 +253,7 @@ Always think about the "why" behind questions and provide strategic career insig
     }
 
     let structuredData = null
-    let responseText = assistantMessage?.content || 'I apologize, but I encountered an issue processing your request.'
+    const responseText = assistantMessage?.content || 'I apologize, but I encountered an issue processing your request.'
 
     // Check if the assistant used the structured response tool
     if (assistantMessage?.tool_calls && assistantMessage.tool_calls.length > 0) {

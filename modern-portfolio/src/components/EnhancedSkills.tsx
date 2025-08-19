@@ -194,152 +194,10 @@ export default function Skills() {
           </p>
         </motion.div>
 
-        {!currentChallenge ? (
+
+
+        {!currentChallenge && (
           <>
-            {/* Featured Interactive Skills */}
-            <motion.div
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              viewport={{ once: true }}
-              className="mb-16"
-            >
-              <h3 className="text-2xl font-bold text-center mb-8 text-purple-400">
-                Interactive Skill Challenges
-              </h3>
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {Object.entries(skillProgress).map(([skillName, skill]) => (
-                  <motion.div
-                    key={skillName}
-                    className="glass p-6 rounded-xl cursor-pointer hover-lift"
-                    onClick={() => setSelectedSkill(skillName)}
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                  >
-                    <div className="flex justify-between items-start mb-4">
-                      <h4 className="text-lg font-bold text-white">{skillName}</h4>
-                      <span className="text-sm text-purple-400">Level {skill.level}</span>
-                    </div>
-                    
-                    {/* XP Progress Bar */}
-                    <div className="bg-gray-700 rounded-full h-2 mb-4">
-                      <motion.div
-                        className="bg-gradient-to-r from-purple-500 to-pink-500 rounded-full h-2"
-                        initial={{ width: 0 }}
-                        animate={{ width: `${(skill.xp / skill.maxXp) * 100}%` }}
-                        transition={{ duration: 1, delay: 0.5 }}
-                      />
-                    </div>
-                    
-                    <div className="flex justify-between text-sm text-gray-400">
-                      <span>{skill.xp} XP</span>
-                      <span>{skill.challenges.filter(c => !c.completed).length} challenges</span>
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
-            </motion.div>
-
-            {/* Challenge Preview */}
-            {Object.keys(skillProgress).length > 0 && (
-              <motion.div
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-                viewport={{ once: true }}
-                className="mb-16"
-              >
-                <h3 className="text-2xl font-bold text-center mb-8 text-cyan-400">
-                  Sample Challenge Preview
-                </h3>
-                <div className="max-w-4xl mx-auto glass p-8 rounded-xl">
-                  <div className="grid md:grid-cols-2 gap-8">
-                    {/* React Challenge Preview */}
-                    {skillProgress['React'] && skillProgress['React'].challenges[0] && (
-                      <div className="border border-purple-500/30 rounded-xl p-6">
-                        <div className="flex justify-between items-start mb-4">
-                          <div>
-                            <h4 className="text-lg font-bold text-white mb-1">React Challenge</h4>
-                            <p className="text-purple-400 text-sm">{skillProgress['React'].challenges[0].title}</p>
-                          </div>
-                          <span className={`px-2 py-1 rounded text-xs ${getDifficultyColor(skillProgress['React'].challenges[0].difficulty)}`}>
-                            {skillProgress['React'].challenges[0].difficulty}
-                          </span>
-                        </div>
-                        
-                        <div className="bg-gray-900 rounded-lg p-4 mb-4">
-                          <pre className="text-green-400 text-sm overflow-x-auto">
-                            <code>{skillProgress['React'].challenges[0].code}</code>
-                          </pre>
-                        </div>
-                        
-                        <div className="mb-4">
-                          <p className="text-white text-sm mb-3">{skillProgress['React'].challenges[0].question}</p>
-                          <div className="space-y-2">
-                            {skillProgress['React'].challenges[0].options?.slice(0, 2).map((option, index) => (
-                              <div key={index} className="bg-white/5 border border-white/20 rounded-lg p-3">
-                                <span className="text-purple-400 font-mono text-sm">{String.fromCharCode(65 + index)}.</span>
-                                <span className="text-white text-sm ml-2">{option}</span>
-                              </div>
-                            ))}
-                            <div className="text-gray-400 text-sm text-center py-2">
-                              ... and {(skillProgress['React'].challenges[0].options?.length || 0) - 2} more options
-                            </div>
-                          </div>
-                        </div>
-                        
-                        <div className="flex justify-between items-center">
-                          <span className="text-yellow-400 text-sm">+{skillProgress['React'].challenges[0].xpReward} XP</span>
-                          <span className="text-purple-400 text-sm">Click skill above to try!</span>
-                        </div>
-                      </div>
-                    )}
-
-                    {/* TypeScript Challenge Preview */}
-                    {skillProgress['TypeScript'] && skillProgress['TypeScript'].challenges[0] && (
-                      <div className="border border-blue-500/30 rounded-xl p-6">
-                        <div className="flex justify-between items-start mb-4">
-                          <div>
-                            <h4 className="text-lg font-bold text-white mb-1">TypeScript Challenge</h4>
-                            <p className="text-blue-400 text-sm">{skillProgress['TypeScript'].challenges[0].title}</p>
-                          </div>
-                          <span className={`px-2 py-1 rounded text-xs ${getDifficultyColor(skillProgress['TypeScript'].challenges[0].difficulty)}`}>
-                            {skillProgress['TypeScript'].challenges[0].difficulty}
-                          </span>
-                        </div>
-                        
-                        <div className="bg-gray-900 rounded-lg p-4 mb-4">
-                          <pre className="text-blue-400 text-sm overflow-x-auto">
-                            <code>{skillProgress['TypeScript'].challenges[0].code}</code>
-                          </pre>
-                        </div>
-                        
-                        <div className="mb-4">
-                          <p className="text-white text-sm mb-3">{skillProgress['TypeScript'].challenges[0].question}</p>
-                          <div className="space-y-2">
-                            {skillProgress['TypeScript'].challenges[0].options?.slice(0, 2).map((option, index) => (
-                              <div key={index} className="bg-white/5 border border-white/20 rounded-lg p-3">
-                                <span className="text-blue-400 font-mono text-sm">{String.fromCharCode(65 + index)}.</span>
-                                <span className="text-white text-sm ml-2">{option}</span>
-                              </div>
-                            ))}
-                            <div className="text-gray-400 text-sm text-center py-2">
-                              ... and {(skillProgress['TypeScript'].challenges[0].options?.length || 0) - 2} more options
-                            </div>
-                          </div>
-                        </div>
-                        
-                        <div className="flex justify-between items-center">
-                          <span className="text-yellow-400 text-sm">+{skillProgress['TypeScript'].challenges[0].xpReward} XP</span>
-                          <span className="text-blue-400 text-sm">Click skill above to try!</span>
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                </div>
-              </motion.div>
-            )}
-
             {/* All Skills Grid */}
             <div className="grid lg:grid-cols-2 gap-8 mb-16">
               {skillCategories.map((category, categoryIndex) => (
@@ -389,6 +247,50 @@ export default function Skills() {
                 </motion.div>
               ))}
             </div>
+
+            {/* Featured Interactive Skills */}
+            <motion.div
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+              viewport={{ once: true }}
+              className="mb-16"
+            >
+              <h3 className="text-2xl font-bold text-center mb-8 text-purple-400">
+                Interactive Skill Challenges
+              </h3>
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {Object.entries(skillProgress).map(([skillName, skill]) => (
+                  <motion.div
+                    key={skillName}
+                    className="glass p-6 rounded-xl cursor-pointer hover-lift"
+                    onClick={() => setSelectedSkill(skillName)}
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    <div className="flex justify-between items-start mb-4">
+                      <h4 className="text-lg font-bold text-white">{skillName}</h4>
+                      <span className="text-sm text-purple-400">Level {skill.level}</span>
+                    </div>
+                    
+                    {/* XP Progress Bar */}
+                    <div className="bg-gray-700 rounded-full h-2 mb-4">
+                      <motion.div
+                        className="bg-gradient-to-r from-purple-500 to-pink-500 rounded-full h-2"
+                        initial={{ width: 0 }}
+                        animate={{ width: `${(skill.xp / skill.maxXp) * 100}%` }}
+                        transition={{ duration: 1, delay: 0.5 }}
+                      />
+                    </div>
+                    
+                    <div className="flex justify-between text-sm text-gray-400">
+                      <span>{skill.xp} XP</span>
+                      <span>{skill.challenges.filter(c => !c.completed).length} challenges</span>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
 
             {/* Selected Skill Challenges */}
             <AnimatePresence>
@@ -510,110 +412,120 @@ export default function Skills() {
               </div>
             </motion.div>
           </>
-        ) : (
-          /* Challenge Interface */
-          <motion.div
-            className="max-w-4xl mx-auto glass p-8 rounded-xl mb-16"
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-          >
-            <div className="flex justify-between items-start mb-6">
-              <div>
-                <h3 className="text-2xl font-bold text-white mb-2">{currentChallenge.title}</h3>
-                <p className="text-gray-300">{currentChallenge.description}</p>
-              </div>
-              <div className="text-right">
-                <div className="text-yellow-400 font-bold">+{currentChallenge.xpReward} XP</div>
-                <div className={`text-sm px-2 py-1 rounded ${getDifficultyColor(currentChallenge.difficulty)}`}>
-                  {currentChallenge.difficulty}
+        )}
+
+        {/* Active Challenge Interface */}
+        <AnimatePresence>
+          {currentChallenge && (
+            <motion.div
+              className="max-w-4xl mx-auto glass p-8 rounded-xl mb-16"
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.9 }}
+            >
+              <div className="flex justify-between items-start mb-6">
+                <div>
+                  <h3 className="text-2xl font-bold text-white mb-2">{currentChallenge.title}</h3>
+                  <p className="text-gray-300">{currentChallenge.description}</p>
+                </div>
+                <div className="text-right">
+                  <div className="text-yellow-400 font-bold">+{currentChallenge.xpReward} XP</div>
+                  <div className={`text-sm px-2 py-1 rounded ${getDifficultyColor(currentChallenge.difficulty)}`}>
+                    {currentChallenge.difficulty}
+                  </div>
                 </div>
               </div>
-            </div>
 
-            {/* Code Block */}
-            {currentChallenge.code && (
-              <div className="bg-gray-900 rounded-xl p-4 mb-6 overflow-x-auto">
-                <pre className="text-green-400 text-sm">
-                  <code>{currentChallenge.code}</code>
-                </pre>
-              </div>
-            )}
-
-            {/* Question */}
-            <div className="mb-6">
-              <h4 className="text-lg font-semibold text-white mb-4">{currentChallenge.question}</h4>
-              <div className="space-y-3">
-                {currentChallenge.options?.map((option, index) => (
-                  <motion.button
-                    key={index}
-                    className={`w-full p-4 rounded-xl border text-left transition-all ${
-                      selectedAnswer === index
-                        ? 'border-purple-500 bg-purple-500/20'
-                        : 'border-white/20 bg-white/5 hover:border-purple-500/50'
-                    }`}
-                    onClick={() => setSelectedAnswer(index)}
-                    whileHover={{ scale: 1.01 }}
-                    whileTap={{ scale: 0.99 }}
-                  >
-                    <span className="text-purple-400 font-mono">{String.fromCharCode(65 + index)}.</span>
-                    <span className="text-white ml-3">{option}</span>
-                  </motion.button>
-                ))}
-              </div>
-            </div>
-
-            {/* Submit Button */}
-            <div className="flex gap-4">
-              <motion.button
-                onClick={submitAnswer}
-                disabled={selectedAnswer === null}
-                className={`px-8 py-3 rounded-xl font-semibold transition-all ${
-                  selectedAnswer !== null
-                    ? 'bg-purple-500 hover:bg-purple-600 text-white'
-                    : 'bg-gray-600 text-gray-400 cursor-not-allowed'
-                }`}
-                whileHover={selectedAnswer !== null ? { scale: 1.05 } : {}}
-                whileTap={selectedAnswer !== null ? { scale: 0.95 } : {}}
-              >
-                Submit Answer
-              </motion.button>
-              
-              <button
-                onClick={() => setCurrentChallenge(null)}
-                className="px-8 py-3 rounded-xl border border-white/20 text-white hover:bg-white/10 transition-all"
-              >
-                Back
-              </button>
-            </div>
-
-            {/* Result */}
-            <AnimatePresence>
-              {showResult && (
-                <motion.div
-                  className={`mt-6 p-4 rounded-xl border ${
-                    selectedAnswer === currentChallenge.correctAnswer
-                      ? 'bg-green-500/20 border-green-500/50 text-green-400'
-                      : 'bg-red-500/20 border-red-500/50 text-red-400'
-                  }`}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                >
-                  <div className="text-center">
-                    <div className="text-2xl mb-2">
-                      {selectedAnswer === currentChallenge.correctAnswer ? '✓' : '✗'}
-                    </div>
-                    <div className="text-xl font-bold mb-2">
-                      {selectedAnswer === currentChallenge.correctAnswer ? 'Correct!' : 'Incorrect!'}
-                    </div>
-                    {selectedAnswer === currentChallenge.correctAnswer && (
-                      <div className="text-yellow-400">+{currentChallenge.xpReward} XP earned!</div>
-                    )}
-                  </div>
-                </motion.div>
+              {/* Code Block */}
+              {currentChallenge.code && (
+                <div className="bg-gray-900 rounded-xl p-4 mb-6 overflow-x-auto">
+                  <pre className="text-green-400 text-sm">
+                    <code>{currentChallenge.code}</code>
+                  </pre>
+                </div>
               )}
-            </AnimatePresence>
-          </motion.div>
-        )}
+
+              {/* Question */}
+              <div className="mb-6">
+                <h4 className="text-lg font-semibold text-white mb-4">{currentChallenge.question}</h4>
+                <div className="space-y-3">
+                  {currentChallenge.options?.map((option, index) => (
+                    <motion.button
+                      key={index}
+                      className={`w-full p-4 rounded-xl border text-left transition-all ${
+                        selectedAnswer === index
+                          ? 'border-purple-500 bg-purple-500/20'
+                          : 'border-white/20 bg-white/5 hover:border-purple-500/50'
+                      }`}
+                      onClick={() => setSelectedAnswer(index)}
+                      whileHover={{ scale: 1.01 }}
+                      whileTap={{ scale: 0.99 }}
+                    >
+                      <span className="text-purple-400 font-mono">{String.fromCharCode(65 + index)}.</span>
+                      <span className="text-white ml-3">{option}</span>
+                    </motion.button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Submit Button */}
+              <div className="flex gap-4">
+                <motion.button
+                  onClick={submitAnswer}
+                  disabled={selectedAnswer === null}
+                  className={`px-8 py-3 rounded-xl font-semibold transition-all ${
+                    selectedAnswer !== null
+                      ? 'bg-purple-500 hover:bg-purple-600 text-white'
+                      : 'bg-gray-600 text-gray-400 cursor-not-allowed'
+                  }`}
+                  whileHover={selectedAnswer !== null ? { scale: 1.05 } : {}}
+                  whileTap={selectedAnswer !== null ? { scale: 0.95 } : {}}
+                >
+                  Submit Answer
+                </motion.button>
+                
+                <button
+                  onClick={() => {
+                    setCurrentChallenge(null)
+                    setSelectedAnswer(null)
+                    setShowResult(false)
+                  }}
+                  className="px-8 py-3 rounded-xl border border-white/20 text-white hover:bg-white/10 transition-all"
+                >
+                  Back to Skills
+                </button>
+              </div>
+
+              {/* Result */}
+              <AnimatePresence>
+                {showResult && (
+                  <motion.div
+                    className={`mt-6 p-4 rounded-xl border ${
+                      selectedAnswer === currentChallenge.correctAnswer
+                        ? 'bg-green-500/20 border-green-500/50 text-green-400'
+                        : 'bg-red-500/20 border-red-500/50 text-red-400'
+                    }`}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                  >
+                    <div className="text-center">
+                      <div className="text-2xl mb-2">
+                        {selectedAnswer === currentChallenge.correctAnswer ? '✓' : '✗'}
+                      </div>
+                      <div className="text-xl font-bold mb-2">
+                        {selectedAnswer === currentChallenge.correctAnswer ? 'Correct!' : 'Incorrect!'}
+                      </div>
+                      {selectedAnswer === currentChallenge.correctAnswer && (
+                        <div className="text-yellow-400">+{currentChallenge.xpReward} XP earned!</div>
+                      )}
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
       </section>
     </AnimatedBackground>
   )
