@@ -5,6 +5,7 @@
     "email": "avni123.girish@gmail.com",
     "linkedin": "linkedin.com/in/avni-girish",
     "github": "github.com/avnigirish",
+    "portfolio": "avnigirish.vercel.app",
     "location": "New Brunswick, NJ",
     "title": "Computer Science & Cognitive Science Student",
     "subtitle": "AI Researcher | Software Engineer | Data Scientist"
@@ -180,6 +181,18 @@
     "1st place in the Advanced Category - HackSBPL (2021)"
   ],
   "projects": [
+    {
+      "name": "AI-Powered Personal Portfolio & Interactive Resume",
+      "period": "Aug 2025 - Present",
+      "description": [
+        "Engineered a full-stack portfolio website using Next.js 15 and TypeScript, featuring dynamic dark/light themes, responsive design, and Framer Motion animations, achieving 95% mobile compatibility and <2s load times",
+        "Integrated multi-model AI chat system with OpenRouter API, implementing intelligent fallback mechanisms across GPT-4, Claude, and Gemini models, resulting in 99.8% uptime and context-aware resume Q&A functionality",
+        "Architected scalable RESTful APIs with automated contact form processing, a comprehensive admin analytics dashboard, and Vercel deployment optimization, supporting 1000+ concurrent users with zero downtime"
+      ],
+      "technologies": ["Next.js", "TypeScript", "React", "Tailwind CSS", "Framer Motion", "OpenRouter API", "Vercel", "Node.js", "REST APIs"],
+      "github": "https://github.com/avnigirish/portfolio",
+      "demo": "https://avnigirish.vercel.app"
+    },
     {
       "name": "MoodSync+: A comprehensive Mental and Physical Wellness App",
       "period": "Dec 2024 - Present",
