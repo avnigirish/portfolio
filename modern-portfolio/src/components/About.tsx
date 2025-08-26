@@ -1,16 +1,61 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import { useState, useEffect } from 'react'
 import resumeData from '@/data/resume.json'
 import AnimatedBackground from './AnimatedBackground'
+import { CompanyLogo } from './CompanyLogos'
 
 export default function About() {
+  const [isMounted, setIsMounted] = useState(false)
+
+  useEffect(() => {
+    setIsMounted(true)
+  }, [])
+
   const metrics = [
     { value: '8+', label: 'Companies Worked At' },
     { value: '650+', label: 'Students Tutored' },
     { value: '6+', label: 'Certifications' },
     { value: '2', label: 'Research Projects' }
   ]
+
+  if (!isMounted) {
+    return (
+      <AnimatedBackground variant="subtle">
+        <section className="container mx-auto px-6">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 gradient-text">
+              About Me
+            </h2>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+              Passionate about the intersection of artificial intelligence and cognitive science
+            </p>
+          </div>
+          {/* Static content while hydrating */}
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div className="space-y-6">
+              <p className="text-lg leading-relaxed">
+                Loading...
+              </p>
+            </div>
+            <div className="grid grid-cols-2 gap-6">
+              {metrics.map((metric, index) => (
+                <div key={metric.label} className="text-center glass p-6 rounded-xl">
+                  <div className="text-3xl md:text-4xl font-bold gradient-text mb-2">
+                    {metric.value}
+                  </div>
+                  <p className="text-muted-foreground font-medium">
+                    {metric.label}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      </AnimatedBackground>
+    )
+  }
 
   return (
     <AnimatedBackground variant="subtle">
@@ -111,6 +156,56 @@ export default function About() {
           ))}
         </motion.div>
       </div>
+
+      {/* Companies I've Worked With */}
+      <motion.div
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.8 }}
+        viewport={{ once: true }}
+        className="mt-16"
+      >
+        <h3 className="text-2xl font-bold text-center mb-8 gradient-text">
+          Companies I've Worked With
+        </h3>
+        <div className="flex flex-wrap justify-center items-center gap-8">
+          {resumeData.workExperience.slice(0, 5).map((experience, index) => (
+            <motion.div
+              key={experience.company}
+              initial={{ opacity: 0, scale: 0.8 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              transition={{ 
+                duration: 0.5, 
+                delay: index * 0.15,
+                type: "spring",
+                stiffness: 100
+              }}
+              viewport={{ once: true }}
+              className="group"
+            >
+              <motion.div
+                whileHover={{ y: -8 }}
+                className="relative"
+              >
+                <CompanyLogo 
+                  company={experience.company}
+                  color={experience.color}
+                  size="lg"
+                />
+                {/* Company name tooltip */}
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  whileHover={{ opacity: 1, y: 0 }}
+                  className="absolute top-full mt-3 left-1/2 transform -translate-x-1/2 bg-black/80 text-white text-xs px-3 py-2 rounded-lg whitespace-nowrap z-10"
+                >
+                  {experience.company}
+                  <div className="absolute -top-1 left-1/2 transform -translate-x-1/2 w-2 h-2 bg-black/80 rotate-45"></div>
+                </motion.div>
+              </motion.div>
+            </motion.div>
+          ))}
+        </div>
+      </motion.div>
 
       {/* Organizations */}
       <motion.div
