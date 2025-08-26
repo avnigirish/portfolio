@@ -104,6 +104,24 @@ export default function About() {
             exploring how human cognition can inform better AI systems and vice versa.
           </p>
 
+          {/* Additional Professional Information */}
+          <div className="bg-gradient-to-r from-purple-500/10 to-pink-500/10 border border-purple-500/20 rounded-lg p-4 space-y-2">
+            <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm">
+              <span className="flex items-center">
+                <span className="w-2 h-2 bg-green-500 rounded-full mr-2"></span>
+                <span className="text-muted-foreground">🇺🇸 US Citizen</span>
+              </span>
+              <span className="flex items-center">
+                <span className="w-2 h-2 bg-blue-500 rounded-full mr-2"></span>
+                <span className="text-muted-foreground">📍 Open to Relocate</span>
+              </span>
+              <span className="flex items-center">
+                <span className="w-2 h-2 bg-purple-500 rounded-full mr-2"></span>
+                <span className="text-muted-foreground">📄 References Available on Request</span>
+              </span>
+            </div>
+          </div>
+
           {/* Education Highlight */}
           <motion.div
             whileHover={{ scale: 1.02 }}
