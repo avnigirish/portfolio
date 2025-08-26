@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion'
 import resumeData from '@/data/resume.json'
 import AnimatedBackground from './AnimatedBackground'
+import { CompanyLogo } from './CompanyLogos'
 
 export default function Experience() {
   return (
@@ -36,13 +37,11 @@ export default function Experience() {
             <div className="flex flex-col lg:flex-row gap-6">
               {/* Company Logo */}
               <div className="flex-shrink-0">
-                <motion.div
-                  whileHover={{ scale: 1.1, rotateY: 180 }}
-                  className="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl flex items-center justify-center text-2xl animate-rotate-3d"
-                  style={{ color: experience.color }}
-                >
-                  {experience.logo}
-                </motion.div>
+                <CompanyLogo 
+                  company={experience.company}
+                  color={experience.color}
+                  size="lg"
+                />
               </div>
 
               {/* Experience Details */}
