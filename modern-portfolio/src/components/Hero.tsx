@@ -258,6 +258,16 @@ export default function Hero() {
           >
             View My Work
           </motion.button>
+
+          <motion.a
+            href="/resume.pdf"
+            download="Avni_Girish_Resume.pdf"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="px-8 py-4 border-2 border-teal-500 text-teal-500 rounded-full font-semibold hover:bg-teal-500 hover:text-white transition-all duration-300"
+          >
+            Download Resume
+          </motion.a>
         </motion.div>
 
         {/* Floating elements */}
