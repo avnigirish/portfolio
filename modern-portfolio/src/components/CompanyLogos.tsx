@@ -92,7 +92,8 @@ export const CompanyLogo = ({ company, color = '#8B5CF6', size = 'md' }: Company
               alt={`${company} logo`}
               fill
               className="object-contain p-1"
-              sizes="(max-width: 768px) 48px, (max-width: 1200px) 64px, 80px"
+              sizes="(max-width: 768px) 48px, 80px"
+              quality={75}
             />
           </div>
         ) : (

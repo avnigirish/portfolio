@@ -1,82 +1,111 @@
 'use client'
 
-import { motion } from 'framer-motion'
-import { useEffect, useState } from 'react'
+import React, { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
 
 interface AnimatedBackgroundProps {
-  variant?: 'default' | 'subtle' | 'particles' | 'grid' | 'hero' | 'about' | 'experience' | 'skills' | 'projects' | 'contact'
-  children: React.ReactNode
+  children: React.ReactNode;
+  variant?: 'default' | 'subtle' | 'particles' | 'grid' | 'hero' | 'about' | 'experience' | 'skills' | 'projects' | 'contact';
 }
 
-export default function AnimatedBackground({ variant = 'default', children }: AnimatedBackgroundProps) {
+const AnimatedBackground: React.FC<AnimatedBackgroundProps> = ({ children, variant = 'default' }) => {
   const [isClient, setIsClient] = useState(false)
 
   useEffect(() => {
     setIsClient(true)
   }, [])
 
-  const getParticleCount = () => {
+  const getOpacity = () => {
     switch (variant) {
-      case 'subtle': return 20
-      case 'particles': return 80
-      case 'grid': return 30
-      case 'hero': return 60
-      case 'about': return 40
-      case 'skills': return 50
-      default: return 50
+      case 'hero':
+        return 'opacity-50';
+      case 'subtle':
+        return 'opacity-20';
+      case 'default':
+        return 'opacity-30';
+      default:
+        return 'opacity-25';
     }
   }
 
-  const getOpacity = () => {
+  const getParticleCount = () => {
     switch (variant) {
-      case 'subtle': return 'opacity-5'
-      case 'particles': return 'opacity-10'
-      case 'grid': return 'opacity-15'
-      case 'hero': return 'opacity-20'
-      case 'about': return 'opacity-8'
-      case 'skills': return 'opacity-12'
-      default: return 'opacity-10'
+      case 'hero':
+        return 20; // Reduced from 60
+      case 'particles':
+        return 30; // Reduced from 80
+      default:
+        return 15; // Reduced from 40
     }
   }
 
   const renderHeroBackground = () => (
     <>
-      {/* Animated gradient waves */}
+      {/* Simplified Gradient Waves */}
       <motion.div
         animate={{
-          scale: [1, 1.3, 1],
-          rotate: [0, 360],
-          x: [0, 100, -50, 0],
-          y: [0, -50, 25, 0]
+          x: ['-20%', '20%', '-20%'],
+          y: ['-20%', '20%', '-20%'],
         }}
         transition={{
-          duration: 20,
+          duration: 40, // Slower
           repeat: Infinity,
-          ease: "easeInOut"
+          ease: "linear"
         }}
-        className="absolute -top-32 -left-32 w-96 h-96 bg-gradient-to-r from-purple-600/20 to-pink-600/20 rounded-full blur-3xl"
+        className="absolute -top-1/2 -left-1/2 w-[200%] h-[200%] bg-gradient-to-br from-purple-600/30 via-pink-500/30 to-blue-500/30 rounded-full blur-3xl"
       />
-      
       <motion.div
         animate={{
-          scale: [1.2, 1, 1.4, 1.2],
-          rotate: [0, -180, -360],
-          x: [0, -80, 40, 0],
-          y: [0, 60, -30, 0]
+          x: ['20%', '-20%', '20%'],
+          y: ['20%', '-20%', '20%'],
         }}
         transition={{
-          duration: 25,
+          duration: 45, // Slower
           repeat: Infinity,
-          ease: "easeInOut"
+          ease: "linear",
+          delay: 5
         }}
-        className="absolute -bottom-40 -right-40 w-80 h-80 bg-gradient-to-r from-blue-600/15 to-purple-600/15 rounded-full blur-3xl"
+        className="absolute -bottom-1/2 -right-1/2 w-[150%] h-[150%] bg-gradient-to-tl from-cyan-500/30 via-purple-500/30 to-indigo-500/30 rounded-full blur-3xl"
       />
 
-      {/* Floating geometric shapes */}
-      {Array.from({ length: 15 }).map((_, i) => (
+      {/* Reduced Floating Geometric Shapes */}
+      {Array.from({ length: 5 }).map((_, i) => { // Reduced from 15
+        const size = 20 + (i % 3) * 15;
+        return (
+          <motion.div
+            key={i}
+            className="absolute border border-purple-400/30"
+            style={{
+              width: size,
+              height: size,
+              borderRadius: i % 2 === 0 ? '50%' : '8px',
+            }}
+            initial={{
+              x: (i * 200) % 800,
+              y: (i * 150) % 600,
+            }}
+            animate={{
+              y: [(i * 150) % 600, ((i * 150) % 600) - 50, (i * 150) % 600],
+              opacity: [0.1, 0.4, 0.1]
+            }}
+            transition={{
+              duration: 20 + (i * 5), // Slower
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
+          />
+        )
+      })}
+    </>
+  )
+
+  const renderParticlesBackground = () => (
+    <>
+      {/* Reduced Floating Particles */}
+      {Array.from({ length: 20 }).map((_, i) => ( // Reduced from 80
         <motion.div
           key={i}
-          className="absolute w-2 h-2 bg-purple-400/30 rounded-full"
+          className="absolute w-1.5 h-1.5 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full"
           initial={{
             x: (i * 100) % 800,
             y: (i * 80) % 600,
@@ -84,11 +113,10 @@ export default function AnimatedBackground({ variant = 'default', children }: An
           animate={{
             x: ((i * 100) + 300) % 800,
             y: ((i * 80) + 200) % 600,
-            scale: [1, 1.5, 1],
             opacity: [0.3, 0.8, 0.3]
           }}
           transition={{
-            duration: 15 + (i % 5),
+            duration: 20 + (i % 5), // Slower
             repeat: Infinity,
             ease: "linear"
           }}
@@ -99,21 +127,21 @@ export default function AnimatedBackground({ variant = 'default', children }: An
 
   const renderAboutBackground = () => (
     <>
-      {/* Neural network-like connections */}
+      {/* Simplified Neural network-like connections */}
       <svg className="absolute inset-0 w-full h-full opacity-10">
-        {Array.from({ length: 8 }).map((_, i) => (
+        {Array.from({ length: 4 }).map((_, i) => ( // Reduced from 8
           <motion.line
             key={i}
-            x1={`${(i * 15) % 100}%`}
-            y1={`${(i * 20) % 100}%`}
-            x2={`${((i * 15) + 40) % 100}%`}
-            y2={`${((i * 20) + 30) % 100}%`}
+            x1={`${(i * 25) % 100}%`}
+            y1={`${(i * 30) % 100}%`}
+            x2={`${((i * 25) + 40) % 100}%`}
+            y2={`${((i * 30) + 30) % 100}%`}
             stroke="url(#gradient-about)"
             strokeWidth="1"
             initial={{ pathLength: 0, opacity: 0 }}
             animate={{ pathLength: 1, opacity: 0.5 }}
             transition={{
-              duration: 3 + i,
+              duration: 8 + i, // Slower
               repeat: Infinity,
               repeatType: "reverse",
               ease: "easeInOut"
@@ -128,22 +156,21 @@ export default function AnimatedBackground({ variant = 'default', children }: An
         </defs>
       </svg>
 
-      {/* Floating brain-like nodes */}
-      {Array.from({ length: 12 }).map((_, i) => (
+      {/* Reduced Floating brain-like nodes */}
+      {Array.from({ length: 5 }).map((_, i) => ( // Reduced from 12
         <motion.div
           key={i}
           className="absolute w-1 h-1 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full"
           initial={{
-            x: (i * 120) % 800,
-            y: (i * 90) % 500,
+            x: (i * 180) % 800,
+            y: (i * 120) % 500,
           }}
           animate={{
-            y: [((i * 90) % 500), ((i * 90) % 500) - 50, ((i * 90) % 500)],
-            scale: [1, 1.8, 1],
+            y: [((i * 120) % 500), ((i * 120) % 500) - 30, ((i * 120) % 500)],
             opacity: [0.3, 0.9, 0.3]
           }}
           transition={{
-            duration: 8 + (i % 4),
+            duration: 12 + (i % 4), // Slower
             repeat: Infinity,
             ease: "easeInOut"
           }}
@@ -154,7 +181,7 @@ export default function AnimatedBackground({ variant = 'default', children }: An
 
   const renderExperienceBackground = () => (
     <>
-      {/* Timeline-inspired flowing lines */}
+      {/* Simplified Timeline-inspired flowing lines */}
       <svg className="absolute inset-0 w-full h-full opacity-8">
         <motion.path
           d="M0,50 Q300,20 600,50 T1200,50"
@@ -164,7 +191,7 @@ export default function AnimatedBackground({ variant = 'default', children }: An
           initial={{ pathLength: 0 }}
           animate={{ pathLength: 1 }}
           transition={{
-            duration: 4,
+            duration: 8, // Slower
             repeat: Infinity,
             repeatType: "reverse",
             ease: "easeInOut"
@@ -178,7 +205,7 @@ export default function AnimatedBackground({ variant = 'default', children }: An
           initial={{ pathLength: 0 }}
           animate={{ pathLength: 1 }}
           transition={{
-            duration: 6,
+            duration: 10, // Slower
             repeat: Infinity,
             repeatType: "reverse",
             ease: "easeInOut",
@@ -199,24 +226,23 @@ export default function AnimatedBackground({ variant = 'default', children }: An
         </defs>
       </svg>
 
-      {/* Progress indicators */}
-      {Array.from({ length: 6 }).map((_, i) => (
+      {/* Reduced Progress indicators */}
+      {Array.from({ length: 4 }).map((_, i) => ( // Reduced from 6
         <motion.div
           key={i}
-          className="absolute w-3 h-3 border-2 border-purple-400/40 rounded-full"
+          className="absolute w-2.5 h-2.5 border-2 border-purple-400/40 rounded-full"
           initial={{
-            x: (i * 180) + 50,
+            x: (i * 220) + 50,
             y: 45,
             scale: 0
           }}
           animate={{
             scale: [0, 1, 0],
-            borderColor: ["rgba(139, 92, 246, 0.4)", "rgba(139, 92, 246, 0.8)", "rgba(139, 92, 246, 0.4)"]
           }}
           transition={{
-            duration: 3,
+            duration: 4, // Slower
             repeat: Infinity,
-            delay: i * 0.5,
+            delay: i * 0.8,
             ease: "easeInOut"
           }}
         />
@@ -226,25 +252,25 @@ export default function AnimatedBackground({ variant = 'default', children }: An
 
   const renderSkillsBackground = () => (
     <>
-      {/* Code-like matrix effect */}
+      {/* Reduced Code-like matrix effect */}
       <div className="absolute inset-0 font-mono text-xs">
-        {Array.from({ length: 20 }).map((_, i) => (
+        {Array.from({ length: 8 }).map((_, i) => ( // Reduced from 20
           <motion.div
             key={i}
             className="absolute text-purple-400/20 whitespace-nowrap"
             initial={{
-              x: (i * 60) % 800,
-              y: (i * 40) % 600,
+              x: (i * 120) % 800,
+              y: (i * 80) % 600,
               opacity: 0
             }}
             animate={{
-              y: [((i * 40) % 600), ((i * 40) % 600) + 100],
+              y: [((i * 80) % 600), ((i * 80) % 600) + 80],
               opacity: [0, 0.6, 0]
             }}
             transition={{
-              duration: 6 + (i % 3),
+              duration: 10 + (i % 3), // Slower
               repeat: Infinity,
-              delay: (i % 8) * 0.5,
+              delay: (i % 4) * 0.8,
               ease: "linear"
             }}
           >
@@ -253,13 +279,13 @@ export default function AnimatedBackground({ variant = 'default', children }: An
         ))}
       </div>
 
-      {/* Skill network connections */}
+      {/* Reduced Skill network connections */}
       <svg className="absolute inset-0 w-full h-full opacity-10">
-        {Array.from({ length: 12 }).map((_, i) => (
+        {Array.from({ length: 6 }).map((_, i) => ( // Reduced from 12
           <motion.circle
             key={i}
-            cx={`${(i * 25) % 80 + 10}%`}
-            cy={`${(i * 30) % 70 + 15}%`}
+            cx={`${(i * 30) % 80 + 10}%`}
+            cy={`${(i * 35) % 70 + 15}%`}
             r="2"
             fill="url(#gradient-skills)"
             initial={{ scale: 0, opacity: 0 }}
@@ -268,9 +294,9 @@ export default function AnimatedBackground({ variant = 'default', children }: An
               opacity: [0, 0.8, 0]
             }}
             transition={{
-              duration: 4,
+              duration: 5, // Slower
               repeat: Infinity,
-              delay: i * 0.3,
+              delay: i * 0.5,
               ease: "easeInOut"
             }}
           />
@@ -287,39 +313,37 @@ export default function AnimatedBackground({ variant = 'default', children }: An
 
   const renderProjectsBackground = () => (
     <>
-      {/* Project tiles floating effect */}
-      {Array.from({ length: 16 }).map((_, i) => (
+      {/* Reduced Project tiles floating effect */}
+      {Array.from({ length: 6 }).map((_, i) => ( // Reduced from 16
         <motion.div
           key={i}
           className="absolute border border-purple-400/20 rounded-lg"
           initial={{
-            x: (i * 90) % 800,
-            y: (i * 70) % 500,
-            width: 40 + (i % 3) * 20,
-            height: 30 + (i % 2) * 15,
-            rotate: 0,
+            x: (i * 150) % 800,
+            y: (i * 100) % 500,
+            width: 50 + (i % 3) * 20,
+            height: 40 + (i % 2) * 15,
             opacity: 0.1
           }}
           animate={{
-            rotate: [0, 5, -5, 0],
             opacity: [0.1, 0.3, 0.1],
-            scale: [1, 1.05, 1]
+            y: [(i * 100) % 500, ((i * 100) % 500) - 20, (i * 100) % 500]
           }}
           transition={{
-            duration: 8 + (i % 4),
+            duration: 12 + (i % 4), // Slower
             repeat: Infinity,
             ease: "easeInOut",
-            delay: (i % 6) * 0.8
+            delay: (i % 3) * 1.2
           }}
         />
       ))}
 
-      {/* Data flow streams */}
+      {/* Simplified Data flow streams */}
       <svg className="absolute inset-0 w-full h-full opacity-8">
-        {Array.from({ length: 4 }).map((_, i) => (
+        {Array.from({ length: 3 }).map((_, i) => ( // Reduced from 4
           <motion.path
             key={i}
-            d={`M${i * 300},600 Q${i * 300 + 150},300 ${i * 300 + 300},0`}
+            d={`M${i * 400},600 Q${i * 400 + 200},300 ${i * 400 + 400},0`}
             stroke="url(#gradient-projects)"
             strokeWidth="1"
             fill="none"
@@ -327,10 +351,10 @@ export default function AnimatedBackground({ variant = 'default', children }: An
             initial={{ pathLength: 0 }}
             animate={{ pathLength: 1 }}
             transition={{
-              duration: 5,
+              duration: 8, // Slower
               repeat: Infinity,
               ease: "linear",
-              delay: i * 1.2
+              delay: i * 1.5
             }}
           />
         ))}
@@ -347,27 +371,26 @@ export default function AnimatedBackground({ variant = 'default', children }: An
 
   const renderContactBackground = () => (
     <>
-      {/* Communication waves */}
-      {Array.from({ length: 6 }).map((_, i) => (
+      {/* Simplified Communication waves */}
+      {Array.from({ length: 4 }).map((_, i) => ( // Reduced from 6
         <motion.div
           key={i}
           className="absolute border border-purple-400/20 rounded-full"
           initial={{
             x: '50%',
             y: '50%',
-            width: 50 + i * 40,
-            height: 50 + i * 40,
+            width: 50 + i * 50,
+            height: 50 + i * 50,
             opacity: 0.5
           }}
           animate={{
-            width: [50 + i * 40, 100 + i * 60, 50 + i * 40],
-            height: [50 + i * 40, 100 + i * 60, 50 + i * 40],
-            opacity: [0.5, 0.1, 0.5]
+            scale: [1, 1.2, 1],
+            opacity: [0.4, 0.1, 0.4]
           }}
           transition={{
-            duration: 4,
+            duration: 5, // Slower
             repeat: Infinity,
-            delay: i * 0.4,
+            delay: i * 0.6,
             ease: "easeInOut"
           }}
           style={{
@@ -376,22 +399,21 @@ export default function AnimatedBackground({ variant = 'default', children }: An
         />
       ))}
 
-      {/* Message dots */}
-      {Array.from({ length: 10 }).map((_, i) => (
+      {/* Reduced Message dots */}
+      {Array.from({ length: 5 }).map((_, i) => ( // Reduced from 10
         <motion.div
           key={i}
           className="absolute w-1 h-1 bg-pink-400/40 rounded-full"
           initial={{
-            x: (i * 110) % 800,
-            y: (i * 80) % 500,
+            x: (i * 150) % 800,
+            y: (i * 110) % 500,
           }}
           animate={{
-            y: [((i * 80) % 500), ((i * 80) % 500) - 100, ((i * 80) % 500)],
-            opacity: [0.2, 0.8, 0.2],
-            scale: [1, 1.5, 1]
+            y: [((i * 110) % 500), ((i * 110) % 500) - 80, ((i * 110) % 500)],
+            opacity: [0.2, 0.7, 0.2],
           }}
           transition={{
-            duration: 6 + (i % 3),
+            duration: 8 + (i % 3), // Slower
             repeat: Infinity,
             delay: (i % 5) * 0.6,
             ease: "easeInOut"
@@ -443,23 +465,21 @@ export default function AnimatedBackground({ variant = 'default', children }: An
                   y: ((i * 97) + 150) % 600,
                 }}
                 transition={{
-                  duration: 30 + (i % 10),
+                  duration: 40 + (i % 10), // Slower
                   repeat: Infinity,
                   ease: "linear"
                 }}
               />
             ))}
 
-            {/* Gradient Orbs */}
+            {/* Simplified Gradient Orbs */}
             <motion.div
               animate={{
-                scale: [1, 1.3, 1],
-                rotate: [0, 180, 360],
                 x: [0, 100, 0],
                 y: [0, -50, 0]
               }}
               transition={{
-                duration: 25,
+                duration: 35, // Slower
                 repeat: Infinity,
                 ease: "easeInOut"
               }}
@@ -468,38 +488,35 @@ export default function AnimatedBackground({ variant = 'default', children }: An
             
             <motion.div
               animate={{
-                scale: [1.3, 1, 1.3],
-                rotate: [360, 180, 0],
                 x: [0, -100, 0],
                 y: [0, 50, 0]
               }}
               transition={{
-                duration: 30,
+                duration: 40, // Slower
                 repeat: Infinity,
                 ease: "easeInOut"
               }}
               className="absolute bottom-1/4 right-1/4 w-48 h-48 bg-gradient-to-r from-blue-500/10 to-purple-500/10 rounded-full blur-3xl"
             />
 
-            {/* Geometric Shapes */}
-            {Array.from({ length: 8 }).map((_, i) => (
+            {/* Reduced Geometric Shapes */}
+            {Array.from({ length: 4 }).map((_, i) => ( // Reduced from 8
               <motion.div
                 key={i}
                 className="absolute border border-purple-400/20 rounded-lg"
                 style={{
-                  left: `${(i * 150) % 800}px`,
-                  top: `${(i * 120) % 500}px`,
+                  left: `${(i * 200) % 800}px`,
+                  top: `${(i * 150) % 500}px`,
                   width: `${20 + (i % 3) * 10}px`,
                   height: `${20 + (i % 3) * 10}px`,
                 }}
                 animate={{
-                  rotate: [0, 360],
-                  scale: [1, 1.2, 1],
+                  y: [`${(i * 150) % 500}px`, `${((i * 150) % 500) - 30}px`, `${(i * 150) % 500}px`],
                 }}
                 transition={{
-                  duration: 20 + (i % 5),
+                  duration: 25 + (i % 5), // Slower
                   repeat: Infinity,
-                  ease: "linear"
+                  ease: "easeInOut"
                 }}
               />
             ))}
@@ -514,9 +531,9 @@ export default function AnimatedBackground({ variant = 'default', children }: An
                       initial={{ opacity: 0 }}
                       animate={{ opacity: [0, 1, 0] }}
                       transition={{
-                        duration: 4,
+                        duration: 5, // Slower
                         repeat: Infinity,
-                        delay: (i % 40) * 0.2
+                        delay: (i % 40) * 0.3
                       }}
                       className="border border-purple-500/10"
                     />
@@ -525,30 +542,30 @@ export default function AnimatedBackground({ variant = 'default', children }: An
               </div>
             )}
 
-            {/* Floating Code Elements */}
+            {/* Reduced Floating Code Elements */}
             {variant === 'default' && (
               <div className="absolute inset-0 font-mono text-xs">
-                {Array.from({ length: 12 }).map((_, i) => (
+                {Array.from({ length: 6 }).map((_, i) => ( // Reduced from 12
                   <motion.div
                     key={i}
                     className="absolute text-purple-400/20 whitespace-nowrap"
                     initial={{
-                      x: (i * 100) % 800,
-                      y: (i * 80) % 500,
+                      x: (i * 150) % 800,
+                      y: (i * 100) % 500,
                       opacity: 0
                     }}
                     animate={{
-                      y: [((i * 80) % 500), ((i * 80) % 500) + 200],
+                      y: [((i * 100) % 500), ((i * 100) % 500) + 150],
                       opacity: [0, 0.5, 0]
                     }}
                     transition={{
-                      duration: 10 + (i % 5),
+                      duration: 15 + (i % 5), // Slower
                       repeat: Infinity,
-                      delay: (i % 6) * 0.8,
+                      delay: (i % 6) * 1,
                       ease: "linear"
                     }}
                   >
-                    {['{ }', '< />', '( )', '[ ]', '=> ', '...', '?.', '!!', '||', '&&'][i % 10]}
+                    {['{ }', '< />', '( )', '[ ]', '=> ', '...'][i % 6]}
                   </motion.div>
                 ))}
               </div>
@@ -564,3 +581,5 @@ export default function AnimatedBackground({ variant = 'default', children }: An
     </div>
   )
 }
+
+export default AnimatedBackground;
