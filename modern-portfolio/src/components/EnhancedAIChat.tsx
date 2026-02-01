@@ -171,7 +171,7 @@ export default function EnhancedAIChat() {
       
       const botMessage: Message = {
         id: (Date.now() + 1).toString(),
-        content: data.response,
+        content: data.message,
         sender: 'bot',
         timestamp: new Date(),
         structured: data.structured,
@@ -184,7 +184,7 @@ export default function EnhancedAIChat() {
         
         // Auto-speak bot response if voice is enabled
         if (voiceSettings.enabled) {
-          setTimeout(() => speakMessage(data.response), 500)
+          setTimeout(() => speakMessage(data.message), 500)
         }
       }, 1500)
 

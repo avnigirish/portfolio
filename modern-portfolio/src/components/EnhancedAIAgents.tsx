@@ -71,12 +71,12 @@ export default function EnhancedAIAgents() {
 
       // Simulate sentiment analysis based on AI response
       setSentimentResult({
-        sentiment: data.response.includes('positive') ? 'Positive' : 
-                  data.response.includes('negative') ? 'Negative' : 'Neutral',
+        sentiment: data.message.includes('positive') ? 'Positive' : 
+                  data.message.includes('negative') ? 'Negative' : 'Neutral',
         confidence: 89.5,
         emotions: emotions.sort((a, b) => b.score - a.score),
         keywords: sentimentText.split(' ').filter(word => word.length > 3).slice(0, 5),
-        analysis: data.response,
+        analysis: data.message,
         recommendations: [
           'Consider using more positive language',
           'Add emotional depth to communication',
@@ -142,7 +142,7 @@ export default function EnhancedAIAgents() {
           'Take breaks during complex tasks',
           'Stay hydrated for optimal cognition'
         ],
-        detailedAnalysis: data.response
+        detailedAnalysis: data.message
       })
     } catch (error) {
       console.error('Cognitive analysis error:', error)

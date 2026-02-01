@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { Send, Bot, User } from 'lucide-react'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
@@ -12,12 +12,6 @@ interface Message {
   content: string
   sender: 'user' | 'bot'
   timestamp: Date
-  structured?: {
-    topic: string
-    description: string
-    key_points: string[]
-    related_areas?: string[]
-  }
 }
 
 export default function AIChat() {
@@ -27,188 +21,25 @@ export default function AIChat() {
       content: "Hi! I'm Avni's AI assistant. Feel free to ask me about her background, experience, or anything else you'd like to know!",
       sender: 'bot',
       timestamp: new Date(),
-      structured: {
-        topic: "Introduction",
-        description: "Welcome to Avni's AI-powered assistant",
-        key_points: [
-          "Ask about education and background",
-          "Learn about work experience",
-          "Explore technical skills and projects",
-          "Discover research interests"
-        ]
-      }
     }
   ])
   const [inputMessage, setInputMessage] = useState('')
   const [isTyping, setIsTyping] = useState(false)
+  const messagesEndRef = useRef<HTMLDivElement>(null)
 
-  const structuredResponses: Record<string, any> = {
-    'education': {
-      topic: "Education & Academic Background",
-      description: "Avni is pursuing her Bachelor's degree in Computer Science with a minor in Cognitive Science at Rutgers University",
-      key_points: [
-        "Computer Science & Cognitive Science Double Major",
-        "3.7 GPA at Rutgers University-New Brunswick",
-        "Expected graduation: December 2025",
-        "Coursework in AI, Data Science, and Algorithms"
-      ],
-      related_areas: ["Research", "Academic Projects", "Organizations"]
-    },
-    'experience': {
-      topic: "Professional Experience",
-      description: "Diverse experience spanning software engineering, data science, and technical consulting",
-      key_points: [
-        "InfoSec Data Science Intern at BNY (2025)",
-        "IT Business Analyst at NJEDA (2024)",
-        "Research Assistant at Rutgers University",
-        "Diversity programs at Morgan Stanley & Accenture"
-      ],
-      related_areas: ["Skills", "Projects", "AI Applications"]
-    },
-    'skills': {
-      topic: "Technical Skills & Expertise",
-      description: "Full-stack development, AI/ML, and data science capabilities",
-      key_points: [
-        "Languages: Python, Java, C++, JavaScript, SQL",
-        "AI/ML: TensorFlow, PyTorch, NLP, Computer Vision",
-        "Frameworks: React, Next.js, FastAPI, Node.js",
-        "Cloud: AWS, Azure, Database technologies"
-      ],
-      related_areas: ["Projects", "Experience", "Certifications"]
-    },
-    'research': {
-      topic: "Research & Academic Work",
-      description: "Cognitive science research examining hunger's impact on decision-making",
-      key_points: [
-        "Working under Dr. Jenny Wang at Rutgers",
-        "Studying cognitive components of numerical understanding",
-        "Analyzing hunger effects on children's cognitive processes",
-        "Using MATLAB and statistical analysis methods"
-      ],
-      related_areas: ["Education", "Data Science", "Publications"]
-    },
-    'projects': {
-      topic: "Featured Projects & Applications",
-      description: "AI-powered applications and innovative technical solutions",
-      key_points: [
-  "MoodSync+: AI wellness app",
-        "Automated Car Simulation with neural networks",
-        "Sentiment analysis tools with 95% accuracy",
-        "Real-time data visualization dashboards"
-      ],
-      related_areas: ["GitHub", "Skills", "Experience"]
-    },
-    'ai': {
-      topic: "Artificial Intelligence Expertise",
-      description: "Passionate about AI applications in cognitive science and real-world problems",
-      key_points: [
-        "Natural Language Processing and sentiment analysis",
-        "Computer vision and neural network applications",
-        "AI integration in web applications",
-        "Research applications in cognitive science"
-      ],
-      related_areas: ["Projects", "Research", "Experience"]
-    }
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
   }
 
-  const getStructuredResponse = async (message: string): Promise<any> => {
-    const lowerMessage = message.toLowerCase()
-    
-    // Check for keyword matches in structured responses
-    for (const [keyword, response] of Object.entries(structuredResponses)) {
-      if (lowerMessage.includes(keyword)) {
-        return {
-          content: `Here's what you should know about Avni's ${response.topic.toLowerCase()}:
+  useEffect(() => {
+    scrollToBottom()
+  }, [messages, isTyping]);
 
-${response.description}
-
-Key highlights:
-${response.key_points.map((point: string) => `• ${point}`).join('\n')}
-
-${response.related_areas ? `\nRelated topics you might be interested in: ${response.related_areas.join(', ')}` : ''}`,
-          structured: response
-        }
-      }
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    if (!inputMessage.trim()) {
+      return;
     }
-
-    // Enhanced default responses with structured format
-    if (lowerMessage.includes('contact') || lowerMessage.includes('reach')) {
-      return {
-        content: `Here's how you can connect with Avni:
-
-• Email: avni123.girish@gmail.com
-• University: ag2327@scarletmail.rutgers.edu  
-• Location: New Brunswick, NJ
-• LinkedIn: Available through her portfolio
-• Status: Open to opportunities and collaborations
-
-She's always excited to discuss AI, software development, research opportunities, or potential collaborations!`,
-        structured: {
-          topic: "Contact Information",
-          description: "Multiple ways to connect with Avni for opportunities and collaboration",
-          key_points: [
-            "Professional email available",
-            "University contact provided",
-            "Located in New Brunswick, NJ",
-            "Active on professional networks",
-            "Open to new opportunities"
-          ]
-        }
-      }
-    }
-
-    // Try OpenRouter API if available
-    if (process.env.OPENROUTER_API_KEY) {
-      try {
-        const response = await fetch('/api/chat', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ 
-            message,
-            context: "You are Avni Girish's AI assistant. Provide helpful information about her background, skills, and experience."
-          })
-        })
-        
-        if (response.ok) {
-          const data = await response.json()
-          return {
-            content: data.response,
-            structured: data.structured || null
-          }
-        }
-      } catch (error) {
-        console.log('OpenRouter API not available, using fallback responses')
-      }
-    }
-    
-    // Default fallback response
-    return {
-      content: `I'd be happy to help you learn more about Avni! I can provide information about:
-
-• Her education at Rutgers University
-• Professional experience and internships  
-• Technical skills and programming expertise
-• Research work in cognitive science
-• AI and data science projects
-• Contact information and opportunities
-
-What specific area would you like to know more about?`,
-      structured: {
-        topic: "Available Information",
-        description: "Comprehensive information about Avni's background and expertise",
-        key_points: [
-          "Educational background and achievements",
-          "Professional experience across multiple companies",
-          "Technical skills in AI, ML, and full-stack development",
-          "Research contributions in cognitive science",
-          "Portfolio of innovative projects"
-        ]
-      }
-    }
-  }
-
-  const handleSendMessage = async () => {
-    if (!inputMessage.trim()) return
 
     const userMessage: Message = {
       id: Date.now().toString(),
@@ -216,32 +47,47 @@ What specific area would you like to know more about?`,
       sender: 'user',
       timestamp: new Date()
     }
-
     setMessages(prev => [...prev, userMessage])
+    
+    const currentInput = inputMessage;
     setInputMessage('')
     setIsTyping(true)
 
-    // Simulate typing delay and get structured response
-    setTimeout(async () => {
-      const responseData = await getStructuredResponse(inputMessage)
+    try {
+      const response = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ 
+          message: currentInput,
+          context: "You are Avni Girish's AI assistant. Provide helpful information about her background, skills, and experience."
+        })
+      })
       
-      const botResponse: Message = {
-        id: (Date.now() + 1).toString(),
-        content: responseData.content,
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'API request failed');
+      }
+
+      const botMessage: Message = {
+        id: Date.now().toString() + '-bot',
+        content: data.message || "I'm sorry, I couldn't process that. Please try asking in a different way.",
         sender: 'bot',
         timestamp: new Date(),
-        structured: responseData.structured
       }
-      
-      setMessages(prev => [...prev, botResponse])
-      setIsTyping(false)
-    }, 1500) // Fixed delay of 1.5 seconds
-  }
+      setMessages(prev => [...prev, botMessage])
 
-  const handleKeyPress = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
-      e.preventDefault()
-      handleSendMessage()
+    } catch (error) {
+      console.error('Chat API Error:', error);
+      const errorMessage: Message = {
+        id: Date.now().toString() + '-error',
+        content: "Sorry, I'm having trouble connecting to my brain right now. Please try again in a moment.",
+        sender: 'bot',
+        timestamp: new Date()
+      }
+      setMessages(prev => [...prev, errorMessage])
+    } finally {
+      setIsTyping(false)
     }
   }
 
@@ -344,7 +190,7 @@ What specific area would you like to know more about?`,
                 </div>
               </motion.div>
             ))}
-            
+            <div ref={messagesEndRef} />
             {isTyping && (
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
@@ -368,20 +214,26 @@ What specific area would you like to know more about?`,
           </div>
 
           {/* Input */}
-          <div className="p-4 border-t border-border">
+          <form onSubmit={handleSubmit} className="p-4 border-t border-border">
             <div className="flex space-x-3">
               <textarea
                 value={inputMessage}
                 onChange={(e) => setInputMessage(e.target.value)}
-                onKeyPress={handleKeyPress}
+                onKeyPress={(e) => {
+                  if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    handleSubmit(e as any);
+                  }
+                }}
                 placeholder="Ask me about Avni's experience, skills, or projects..."
                 className="flex-1 p-3 bg-gradient-to-r from-blue-50 to-purple-50 border border-blue-200 rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-400 transition-all duration-200 text-gray-900 placeholder:text-gray-500"
                 rows={1}
+                disabled={isTyping}
               />
               <motion.button
+                type="submit"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                onClick={handleSendMessage}
                 disabled={!inputMessage.trim() || isTyping}
                 className="px-4 py-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-lg disabled:opacity-50 disabled:cursor-not-allowed"
               >
@@ -403,7 +255,7 @@ What specific area would you like to know more about?`,
                 </motion.button>
               ))}
             </div>
-          </div>
+          </form>
         </div>
       </motion.div>
     </section>
