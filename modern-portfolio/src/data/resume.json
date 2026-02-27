@@ -14,7 +14,7 @@
     "university": "Rutgers University–New Brunswick",
     "location": "New Brunswick, NJ",
     "degree": "Bachelor of Science in Computer Science and Cognitive Science - Double Major",
-    "graduation": "Dec 2025",
+    "graduation": "May 2026",
     "coursework": [
       "Design and Analysis of Computer Algorithms",
       "Data Structures and Algorithms",
@@ -175,10 +175,12 @@
     "Software Engineering Fellowship - Rutgers Blueprint (2023)",
     "CS50: Introduction to Computer Science - Harvard University (2023)",
     "Solve Real-World Data Problems with SQL - Linkedin (2023)",
-    "Social/Behavioral/Epidemiologic Research Investigators - CITI Program (2023)"
+    "Social/Behavioral/Epidemiologic Research Investigators - CITI Program (2023)",
+    "Incoming AWS AI Practionioner - Amazon Web Services (2026)",
+    "Incoming AWS Cloud Computing - Amazon Web Services (2026)"
   ],
   "awards": [
-    "1st place in the Advanced Category - HackSBPL (2021)"
+    "1st place in the Advanced Category Software Engineer/Software Developer - HackSBPL (2021)"
   ],
   "projects": [
     {
